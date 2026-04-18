@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รุ่งฟ้า Rungfah Restaurant - อาหารไทย-จีนไหหลำแท้ ถนนลาดหญ้า</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            /* ธีมสีใหม่: แดง-ทอง สไตล์จีน */
+            --primary-red: #B91C1C; /* แดงเข้ม */
+            --light-red: #DC2626; /* แดงสว่าง */
+            --gold: #D4AF37; /* ทองสว่าง */
+            --soft-gold: #FEF3C7; /* ครีมทอง */
+            --warm-orange: #EA580C; 
+            --soft-orange: #FDBA74;
+            --dark-text: #27272A;
+            --body-text: #3F3F46;
+            --white: #FFFFFF;
+            --bg-main: #FFFBF7; /* พื้นหลังสีครีมอบอุ่น */
+            --shadow: 0 10px 40px rgba(185, 28, 28, 0.08);
+            --shadow-hover: 0 20px 60px rgba(185, 28, 28, 0.15);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Sarabun',sans-serif;background:var(--bg-main);color:var(--body-text);line-height:1.8;overflow-x:hidden}
+        .bg-decoration{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .bg-circle{position:absolute;border-radius:50%;opacity:0.04;animation:floatBubble 20s infinite ease-in-out}
+        .bg-circle:nth-child(1){width:400px;height:400px;background:var(--primary-red);top:-100px;right:-100px}
+        .bg-circle:nth-child(2){width:300px;height:300px;background:var(--gold);bottom:10%;left:-80px;animation-delay:-7s}
+        .bg-circle:nth-child(3){width:200px;height:200px;background:var(--warm-orange);top:40%;right:5%;animation-delay:-14s}
+        @keyframes floatBubble{0%,100%{transform:translateY(0) scale(1)}33%{transform:translateY(-30px) scale(1.05)}66%{transform:translateY(20px) scale(0.95)}}
+        .reading-progress{position:fixed;top:70px;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--primary-red));z-index:1001;transition:width 0.1s;width:0}
+        .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(185, 28, 28, 0.08);transition:all 0.4s ease}
+        .navbar.scrolled{background:rgba(255,255,255,0.98);box-shadow:0 4px 30px rgba(0,0,0,0.08)}
+        .nav-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:70px;padding:0 2rem}
+        
+        .nav-logo{text-decoration:none;display:flex;align-items:center;transition:transform 0.3s;}
+        .nav-logo:hover{transform:scale(1.05)}
+        .nav-logo-img{height:50px;width:auto;max-width:180px;object-fit:contain;padding:2px 0; display:block; border-radius:50%;} 
+        
+        .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
+        .nav-links a{text-decoration:none;color:var(--dark-text);font-weight:500;font-size:0.95rem;transition:color 0.3s;position:relative;padding:4px 0}
+        .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--primary-red);transition:width 0.3s}
+        .nav-links a:hover::after{width:100%}.nav-links a:hover{color:var(--primary-red)}
+        .nav-links a.active-link{color:var(--primary-red);font-weight:700}.nav-links a.active-link::after{width:100%}
+        .hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px}
+        .hamburger span{width:25px;height:2.5px;background:var(--primary-red);border-radius:2px;transition:0.3s}
+        .page{display:none}.page.active{display:block}
+        
+        .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--primary-red),var(--light-red));color:var(--white);padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;transition:all 0.3s;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(185, 28, 28, 0.25)}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(185, 28, 28, 0.35);color:var(--soft-gold);}
+        .btn-secondary{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--primary-red);padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;transition:all 0.3s;border:2px solid var(--gold);cursor:pointer}
+        .btn-secondary:hover{background:var(--soft-gold);transform:translateY(-3px)}
+        
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+        .hero-logo-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:2rem;animation:fadeInDown 0.8s ease-out}
+        .hero-logo{height:180px;width:auto;max-width:400px;object-fit:contain;margin-bottom:0.8rem;filter:drop-shadow(0 10px 30px rgba(185, 28, 28, 0.15)); border-radius:50%;}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);padding:8px 20px;border-radius:50px;font-size:0.9rem;font-weight:600;color:var(--primary-red);border:1px solid rgba(212, 175, 55, 0.4)}
+        .page-logo{height:120px;width:auto;max-width:80%;object-fit:contain;margin-bottom:1.5rem;filter:drop-shadow(0 8px 25px rgba(0,0,0,0.1)); border-radius:50%;}
+        .footer-logo-img{height:90px;width:auto;max-width:200px;object-fit:contain;margin-bottom:1rem;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.2)); border-radius:50%;}
+        
+        .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 2rem 100px;overflow:hidden}
+        .hero-bg{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(160deg,var(--soft-gold) 0%,var(--bg-main) 40%,#FFFFFF 100%);z-index:0}
+        .hero-content{position:relative;z-index:2;max-width:900px;text-align:center}
+        .hero-title{font-family:'Prompt',sans-serif;font-size:clamp(1.8rem,5vw,3.5rem);font-weight:800;color:var(--dark-text);line-height:1.3;margin-bottom:1.5rem;animation:fadeInUp 0.8s ease-out 0.2s both}
+        .highlight{background:linear-gradient(135deg,var(--primary-red),var(--light-red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero-subtitle{font-size:clamp(1rem,2vw,1.2rem);color:#555;max-width:700px;margin:0 auto 2.5rem;line-height:1.9;animation:fadeInUp 0.8s ease-out 0.4s both}
+        .hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp 0.8s ease-out 0.6s both}
+        .hero-stats{display:flex;justify-content:center;gap:3rem;margin-top:3.5rem;animation:fadeInUp 0.8s ease-out 0.8s both}
+        .stat-item{text-align:center}.stat-number{font-family:'Prompt',sans-serif;font-size:2rem;font-weight:800;color:var(--primary-red)}.stat-label{font-size:0.9rem;color:#666;font-weight:500}
+        .hero-wave{position:absolute;bottom:0;left:0;right:0;z-index:2}
+        
+        .menu-page{padding:100px 2rem 60px}.menu-page-inner{max-width:1100px;margin:0 auto}
+        .menu-page-header{text-align:center;margin-bottom:3rem}
+        .menu-page-title{font-family:'Prompt',sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;color:var(--dark-text);margin-bottom:0.5rem}
+        .menu-page-sub{color:#666;font-size:1.1rem}
+        .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem}
+        .menu-card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:all 0.3s;border:1px solid rgba(212, 175, 55, 0.15)}
+        .menu-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-hover)}
+        .menu-card-img-wrap{width:100%;height:200px;overflow:hidden;background:var(--soft-gold)}
+        .menu-card-img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+        .menu-card:hover .menu-card-img{transform:scale(1.08)}
+        .menu-card-body{padding:1.2rem 1.5rem 1.5rem;text-align:center}
+        .menu-card-body h3{font-family:'Prompt',sans-serif;font-size:1.1rem;font-weight:700;color:var(--primary-red);margin-bottom:0.3rem}
+        .menu-card-body p{font-size:0.9rem;color:#666;margin-bottom:0.75rem}
+        .price{display:inline-block;background:var(--soft-gold);color:var(--primary-red);padding:6px 18px;border-radius:20px;font-weight:700;font-size:1rem; border: 1px solid var(--gold);}
+        
+        .about-page{padding:100px 2rem 60px}.about-inner{max-width:800px;margin:0 auto}
+        .about-hero-text{text-align:center;margin-bottom:3rem}
+        .about-hero-text h1{font-family:'Prompt',sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;color:var(--dark-text);margin-bottom:1rem}
+        .about-hero-text p{color:#555;font-size:1.1rem;line-height:1.9;max-width:600px;margin:0 auto}
+        .about-cards{display:flex;flex-direction:column;gap:1.5rem}
+        .about-card{background:var(--white);border-radius:16px;padding:2rem;box-shadow:var(--shadow);transition:all 0.3s; border-left: 4px solid var(--primary-red);}
+        .about-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+        .about-card .card-emoji{font-size:2.5rem;margin-bottom:0.75rem}
+        .about-card h3{font-family:'Prompt',sans-serif;font-size:1.2rem;font-weight:700;color:var(--primary-red);margin-bottom:0.5rem}
+        .about-card p{font-size:1rem;color:#555;line-height:1.8}
+        
+        .article-page{padding:100px 2rem 60px}.article-container{max-width:860px;margin:0 auto}
+        .article-hero{background:linear-gradient(135deg,var(--primary-red),#8B0000);border-radius:24px;padding:3.5rem 3rem;text-align:center;margin-bottom:2.5rem;position:relative;overflow:hidden;color:white;}
+        .article-hero h1{font-family:'Prompt',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:var(--white);line-height:1.4;position:relative;z-index:1}
+        .article-hero .article-meta{margin-top:1rem;font-size:1rem;color:var(--soft-gold);font-weight:500;position:relative;z-index:1}
+        
+        .article-section{background:var(--white);border-radius:20px;padding:2.5rem 3rem;margin-bottom:1.5rem;box-shadow:var(--shadow);transition:transform 0.3s,box-shadow 0.3s;opacity:0;transform:translateY(30px)}
+        .article-section.visible{opacity:1;transform:translateY(0);transition:opacity 0.6s ease-out,transform 0.6s ease-out}
+        .article-section:hover{box-shadow:var(--shadow-hover)}
+        .section-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+        .section-icon{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:14px;font-size:1.6rem;flex-shrink:0}
+        .section-icon.red{background:linear-gradient(135deg,#FEE2E2,#FCA5A5)}
+        .section-icon.gold{background:linear-gradient(135deg,#FEF3C7,#FDE68A)}
+        .section-title{font-family:'Prompt',sans-serif;font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:700;color:var(--dark-text);line-height:1.4}
+        .section-subtitle{font-family:'Prompt',sans-serif;font-size:1rem;font-weight:500;color:var(--primary-red);margin-top:3px}
+        .article-text{font-size:1.05rem;line-height:2;color:var(--body-text)}.article-text strong{color:var(--primary-red)}
+        .highlight-box{background:var(--soft-gold);border-left:5px solid var(--gold);border-radius:0 12px 12px 0;padding:1.5rem 2rem;margin:1.5rem 0}
+        .highlight-box p{font-size:1.05rem;color:var(--dark-text);line-height:1.9}
+        
+        .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:1.5rem}
+        .feature-card{background:linear-gradient(145deg,#FFFFFF,var(--soft-gold));border-radius:16px;padding:2rem;border:1px solid rgba(212, 175, 55, 0.2);transition:all 0.3s}
+        .feature-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(185, 28, 28, 0.1)}
+        .feature-card .card-emoji{font-size:2.2rem;margin-bottom:0.75rem}
+        .feature-card h3{font-family:'Prompt',sans-serif;font-size:1.1rem;font-weight:700;color:var(--primary-red);margin-bottom:0.5rem}
+        .feature-card p{font-size:0.95rem;color:#555;line-height:1.8}
+        
+        .quote-section{background:linear-gradient(135deg,var(--gold),#B8860B);color:var(--white);border-radius:20px;padding:3rem;text-align:center;position:relative;overflow:hidden}
+        .quote-text{font-size:clamp(1.1rem,2.2vw,1.35rem);font-style:italic;line-height:1.8;max-width:600px;margin:0 auto 1.5rem;position:relative;z-index:1}
+        
+        .cta-section{background:linear-gradient(135deg,var(--soft-gold),#FFFFFF,var(--soft-gold));border-radius:20px;padding:3rem;text-align:center;position:relative;overflow:hidden; border: 1px solid var(--gold);}
+        .cta-section h2{font-family:'Prompt',sans-serif;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:800;color:var(--primary-red);margin-bottom:1rem;position:relative;z-index:1}
+        .cta-section p{font-size:1.05rem;color:var(--dark-text);max-width:500px;margin:0 auto 2rem;line-height:1.8;position:relative;z-index:1}
+        
+        .find-page{padding:100px 2rem 60px}.find-inner{max-width:700px;margin:0 auto;text-align:center}
+        .find-inner h1{font-family:'Prompt',sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;color:var(--dark-text);margin-bottom:0.5rem}
+        .find-inner .find-sub{color:#666;font-size:1.1rem;margin-bottom:2.5rem}
+        .find-map-placeholder{margin-top:2.5rem;background:var(--white);border-radius:16px;height:350px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);color:#888;font-size:1.1rem; border: 1px solid var(--gold);}
+        
+        .contact-page{padding:100px 2rem 60px}.contact-inner{max-width:600px;margin:0 auto;text-align:center}
+        .contact-inner h1{font-family:'Prompt',sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;color:var(--dark-text);margin-bottom:1rem}
+        .contact-cards{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+        .contact-card{background:var(--white);border-radius:16px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.2rem;box-shadow:var(--shadow);transition:all 0.3s; border-left: 4px solid var(--primary-red);}
+        .contact-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+        .contact-card .c-info{text-align:left}.contact-card .c-info h3{font-family:'Prompt',sans-serif;font-size:1.1rem;font-weight:700;color:var(--dark-text)}.contact-card .c-info p{font-size:0.95rem;color:#666; margin-top:2px;}
+        .social-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s}
+        .contact-card:hover .social-icon{transform:scale(1.1)}
+        .social-icon img{width:100%;height:100%;object-fit:contain}
+        .social-icon.facebook{background:#1877F2;padding:10px}.social-icon.phone{background:var(--primary-red);padding:10px}.social-icon.time{background:var(--gold);padding:10px}
+        
+        footer{background:#1A1A1A;color:rgba(255,255,255,0.8);text-align:center;padding:4rem 2rem 3rem;position:relative;z-index:1; border-top: 5px solid var(--primary-red);}
+        .footer-links{display:flex;justify-content:center;gap:2rem;margin:1.5rem 0;flex-wrap:wrap}
+        .footer-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.95rem;transition:color 0.3s}.footer-links a:hover{color:var(--gold)}
+        .footer-copy{font-size:0.85rem;opacity:0.5;margin-top:1.5rem}
+        
+        .scroll-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--primary-red);color:var(--white);border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:all 0.3s;z-index:999;box-shadow:0 4px 15px rgba(185, 28, 28, 0.4);display:flex;align-items:center;justify-content:center}
+        .scroll-top.show{opacity:1;visibility:visible}.scroll-top:hover{background:var(--light-red);transform:translateY(-3px)}
+        
+        @media(max-width:768px){
+            .nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:1.5rem;gap:1rem;box-shadow:0 10px 30px rgba(0,0,0,0.1);border-radius:0 0 20px 20px}
+            .nav-links.active{display:flex}.hamburger{display:flex}
+            .hero{min-height:auto;padding:120px 1.5rem 60px}.hero-logo{height:140px;max-width:300px}.page-logo{height:90px}.footer-logo-img{height:70px}
+            .hero-stats{gap:1.5rem}.stat-number{font-size:1.6rem}
+            .article-section{padding:2rem 1.5rem;border-radius:16px}.article-hero{padding:2.5rem 1.5rem}.quote-section{padding:2rem 1.5rem}.cta-section{padding:2rem 1.5rem}
+            .feature-grid{grid-template-columns:1fr}.section-header{flex-direction:column;align-items:flex-start;gap:0.75rem}
+            .menu-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem}.menu-card-img-wrap{height:140px}
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration"><div class="bg-circle"></div><div class="bg-circle"></div><div class="bg-circle"></div></div>
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <nav class="navbar" id="navbar"><div class="nav-content">
+        <a href="#" class="nav-logo" onclick="showPage('home')">
+            <img src="https://drive.google.com/uc?id=1lPIX8xozMwLAAvGsw6wfBtMqg-7aeefx" alt="Rungfah Restaurant" class="nav-logo-img">
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" onclick="showPage('home')" class="active-link" data-page="home">หน้าแรก</a></li>
+            <li><a href="#" onclick="showPage('about')" data-page="about">ประวัติร้าน</a></li>
+            <li><a href="#" onclick="showPage('menu')" data-page="menu">เมนูอาหาร</a></li>
+            <li><a href="#" onclick="showPage('article')" data-page="article">บริการจัดเลี้ยง</a></li>
+            <li><a href="#" onclick="showPage('find')" data-page="find">การเดินทาง</a></li>
+            <li><a href="#" onclick="showPage('contact')" data-page="contact">ติดต่อเรา</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div></nav>
+
+    <div class="page active" id="page-home"><section class="hero"><div class="hero-bg"></div><div class="hero-content">
+        <div class="hero-logo-wrap">
+            <img src="https://drive.google.com/uc?id=1lPIX8xozMwLAAvGsw6wfBtMqg-7aeefx" alt="Rungfah Restaurant Logo" class="hero-logo">
+            <div class="hero-badge">เปิดบริการทุกวัน 11:00 - 21:00 น.</div>
+        </div>
+        <h1 class="hero-title">สัมผัสรสชาติตำนาน<br><span class="highlight">อาหารไทย - จีนไหหลำแท้</span></h1>
+        <p class="hero-subtitle">ร้านอาหารรุ่งฟ้า (Rungfah Restaurant) ถนนลาดหญ้า สืบทอดสูตรต้นตำรับไหหลำ พร้อมเสิร์ฟความอร่อยที่คุ้นเคยในทุกมื้อสำคัญของคุณและครอบครัว</p>
+        <div class="hero-actions">
+            <a href="#" onclick="showPage('menu')" class="btn-primary">🥢 ดูเมนูทั้งหมด</a>
+            <a href="#" onclick="showPage('contact')" class="btn-secondary">📞 สำรองโต๊ะ</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item"><div class="stat-number">ไหหลำแท้</div><div class="stat-label">สูตรต้นตำรับดั้งเดิม</div></div>
+            <div class="stat-item"><div class="stat-number">ลาดหญ้า</div><div class="stat-label">ที่จอดรถสะดวกสบาย</div></div>
+            <div class="stat-item"><div class="stat-number">รับจัดเลี้ยง</div><div class="stat-label">และทำอาหารไหว้เทศกาล</div></div>
+        </div>
+    </div><svg class="hero-wave" viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:80px;"><path d="M0,60 C360,100 1080,0 1440,60 L1440,100 L0,100 Z" fill="#FFFBF7"/></svg></section></div>
+
+    <div class="page" id="page-about"><div class="about-page"><div class="about-inner">
+        <div class="about-hero-text">
+            <img src="https://drive.google.com/uc?id=1lPIX8xozMwLAAvGsw6wfBtMqg-7aeefx" alt="Rungfah Restaurant" class="page-logo">
+            <h1>ตำนานความอร่อย <span class="highlight">ร้านรุ่งฟ้า</span></h1>
+            <p>กว่าหลายสิบปีที่เราพิถีพิถันในการปรุงอาหารทุกจาน ด้วยจิตวิญญาณของชาวจีนไหหลำแท้ๆ รสชาติที่ส่งต่อจากรุ่นสู่รุ่น ทำให้ "ร้านอาหารรุ่งฟ้า" เป็นมากกว่าร้านอาหาร แต่เป็นสถานที่รวมความสุขของครอบครัวบนถนนลาดหญ้า</p>
+        </div>
+        <div class="about-cards">
+            <div class="about-card"><div class="card-emoji">🍗</div><h3>สูตรลับไหหลำต้นตำรับ</h3><p>เมนูขึ้นชื่ออย่าง "ไก่สับไหหลำ" ที่คัดสรรไก่เนื้อแน่น นุ่ม ชุ่มฉ่ำ ทานคู่กับน้ำจิ้มเต้าเจี้ยวสูตรเด็ดของทางร้านที่หาทานที่ไหนไม่ได้</p></div>
+            <div class="about-card"><div class="card-emoji">🐟</div><h3>วัตถุดิบสดใหม่ คัดสรรอย่างดี</h3><p>ไม่ว่าจะเป็นปลากะพงทอด กระเพาะปลา หรือเมนูซีฟู้ด เราเลือกใช้วัตถุดิบคุณภาพเยี่ยม ปรุงสดใหม่จานต่อจาน เพื่อรสชาติที่ดีที่สุดสำหรับคุณ</p></div>
+            <div class="about-card"><div class="card-emoji">🏮</div><h3>บรรยากาศเป็นกันเอง</h3><p>พื้นที่กว้างขวาง นั่งสบาย เหมาะสำหรับการรับประทานอาหารทั้งแบบครอบครัว กลุ่มเพื่อน หรือจัดเลี้ยง พร้อมที่จอดรถสะดวกสบาย</p></div>
+        </div>
+    </div></div></div>
+
+    <div class="page" id="page-menu"><div class="menu-page"><div class="menu-page-inner">
+        <div class="menu-page-header">
+            <h1 class="menu-page-title">เมนูอาหารร้านรุ่งฟ้า</h1>
+            <p class="menu-page-sub">รสชาติอาหารไทย-จีนไหหลำแท้ ที่คุณต้องมาลิ้มลอง</p>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <img src="https://drive.google.com/uc?id=1zdg1qBkPIiKiA9-XN5ADUvROOU7LjuXt" alt="Rungfah Menu" style="max-width: 100%; height: auto; border-radius: 16px; box-shadow: var(--shadow); border: 2px solid var(--gold);">
+            <br><br>
+            <a href="https://drive.google.com/file/d/1zdg1qBkPIiKiA9-XN5ADUvROOU7LjuXt/view?usp=sharing" target="_blank" class="btn-primary">🔍 ดูเมนูฉบับเต็ม / ดาวน์โหลดไฟล์</a>
+        </div>
+
+        <h2 style="text-align:center; color:var(--primary-red); margin-bottom:1.5rem; font-family:'Prompt', sans-serif;">เมนูแนะนำของทางร้าน</h2>
+        <div class="menu-grid">
+            <div class="menu-card"><div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1626804475297-41609ea082eb?auto=format&fit=crop&w=500&q=80" alt="Hainanese Chicken" class="menu-card-img"></div><div class="menu-card-body"><h3>ไก่สับไหหลำ</h3><p>เนื้อนุ่มฉ่ำ พร้อมน้ำจิ้มสูตรเด็ด</p><span class="price">แนะนำ</span></div></div>
+            <div class="menu-card"><div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?auto=format&fit=crop&w=500&q=80" alt="Fried Fish" class="menu-card-img"></div><div class="menu-card-body"><h3>ปลากะพงทอดน้ำปลา</h3><p>กรอบนอก นุ่มใน น้ำยำรสจัด</p><span class="price">ยอดนิยม</span></div></div>
+            <div class="menu-card"><div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&fit=crop&w=500&q=80" alt="Fish Maw" class="menu-card-img"></div><div class="menu-card-body"><h3>กระเพาะปลาผัดแห้ง</h3><p>ผัดไฟแดง หอมกลิ่นกระทะ</p><span class="price">ต้องลอง</span></div></div>
+        </div>
+    </div></div></div>
+
+    <div class="page" id="page-article"><div class="article-page"><div class="article-container">
+        <div class="article-hero">
+            <h1>บริการรับทำอาหารไหว้ <br>และจัดเลี้ยงนอกสถานที่</h1>
+            <p class="article-meta">🎊 เทศกาลตรุษจีน สารทจีน &nbsp;|&nbsp; 🍽️ รับจัดเลี้ยง</p>
+        </div>
+        <section class="article-section">
+            <div class="section-header"><div class="section-icon red">🧧</div><div><h2 class="section-title">รับทำอาหารไหว้ช่วงเทศกาล</h2><p class="section-subtitle">ตรุษจีน, สารทจีน, เชงเม้ง</p></div></div>
+            <div class="article-text">
+                <p>ร้านอาหารรุ่งฟ้า เข้าใจถึงความสำคัญของประเพณีจีน เราจึงมีบริการ <strong>รับจัดชุดอาหารไหว้เจ้า ไหว้บรรพบุรุษ</strong> แบบครบถ้วน ถูกต้องตามธรรมเนียมไหหลำ</p>
+                <div class="highlight-box"><p>ทั้งไก่ต้มไหหลำตัวสวย (ต้มพร้อมเครื่องใน), หมูบะเต็ง, หมูกรอบ, เป็ดย่าง และอาหารมงคลอื่นๆ สั่งล่วงหน้าเพื่อความสะดวกสบายและได้ของไหว้คุณภาพเยี่ยม</p></div>
+            </div>
+        </section>
+        <section class="article-section">
+            <div class="section-header"><div class="section-icon gold">🥂</div><div><h2 class="section-title">รับจัดเลี้ยง (Catering & Banquets)</h2><p class="section-subtitle">สำหรับทุกโอกาสสำคัญของคุณ</p></div></div>
+            <div class="article-text">
+                <p>ไม่ว่าจะเป็นงานเลี้ยงรุ่น, งานวันเกิดผู้ใหญ่, หรือการทานข้าวครอบครัวกลุ่มใหญ่ ทางร้านมีพื้นที่รองรับ พร้อมเมนูโต๊ะจีนที่สามารถปรับแต่งได้ตามงบประมาณและความต้องการ</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card"><div class="card-emoji">👨‍👩‍👧‍👦</div><h3>Private Group</h3><p>รองรับการจัดโต๊ะสำหรับครอบครัวใหญ่ หรือการจัดเลี้ยงกลุ่มส่วนตัว</p></div>
+                <div class="feature-card"><div class="card-emoji">🍲</div><h3>เซ็ตเมนูโต๊ะจีน</h3><p>อาหารจีนชุดพิเศษ คุ้มค่า ครบเครื่อง ทั้งออเดิร์ฟ ซุป จานหลัก และของหวาน</p></div>
+            </div>
+        </section>
+        <section class="quote-section article-section">
+            <p class="quote-text">"ทุกเทศกาลสำคัญ ให้ร้านอาหารรุ่งฟ้าดูแลมื้อพิเศษของคุณ ด้วยความใส่ใจเหมือนทำให้คนในครอบครัวทาน"</p>
+        </section>
+        <section class="cta-section article-section">
+            <h2>📞 สนใจสั่งอาหารไหว้ หรือจองโต๊ะจัดเลี้ยง</h2>
+            <p>กรุณาสั่งจองล่วงหน้าในช่วงเทศกาล เพื่อให้ทางร้านได้เตรียมวัตถุดิบที่ดีที่สุดสำหรับคุณ</p>
+            <a href="tel:0816972739" class="btn-primary">โทรสอบถาม: 081-6972739</a>
+        </section>
+    </div></div></div>
+
+    <div class="page" id="page-find"><div class="find-page"><div class="find-inner">
+        <h1>การเดินทางมาที่ร้าน</h1>
+        <p class="find-sub">ตั้งอยู่บนถนนลาดหญ้า ที่จอดรถกว้างขวาง สะดวกสบาย</p>
+        <div class="find-map-placeholder">
+            🗺️ (นำ Google Maps Iframe ของถนนลาดหญ้ามาวางตรงนี้ได้เลยครับ)
+        </div>
+    </div></div></div>
+
+    <div class="page" id="page-contact"><div class="contact-page"><div class="contact-inner">
+        <h1>ติดต่อร้านอาหารรุ่งฟ้า</h1>
+        <p style="color:#666;margin-bottom:1rem;">เปิดให้บริการทุกวัน 11:00 - 21:00 น. <br>(ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน)</p>
+        <div class="contact-cards">
+            <a href="tel:0816972739" style="text-decoration:none;"><div class="contact-card">
+                <div class="social-icon phone"><h3 style="color:white; font-size:1.5rem;">📞</h3></div>
+                <div class="c-info"><h3>โทรศัพท์ (สำรองโต๊ะ/สั่งอาหาร)</h3><p>081-6972739</p></div>
+            </div></a>
+            
+            <a href="https://www.facebook.com/" target="_blank" style="text-decoration:none;"><div class="contact-card">
+                <div class="social-icon facebook"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="filter:brightness(0) invert(1);"></div>
+                <div class="c-info"><h3>Facebook Page</h3><p>รุ่งฟ้า Rungfah restaurant</p></div>
+            </div></a>
+
+            <div class="contact-card">
+                <div class="social-icon time"><h3 style="color:white; font-size:1.5rem;">⏰</h3></div>
+                <div class="c-info"><h3>เวลาทำการ</h3><p>11:00 - 21:00 น. (ปิดจันทร์ที่ 2 และ 4)</p></div>
+            </div>
+        </div>
+    </div></div></div>
+
+    <footer>
+        <img src="https://drive.google.com/uc?id=1lPIX8xozMwLAAvGsw6wfBtMqg-7aeefx" alt="Rungfah Restaurant" class="footer-logo-img">
+        <p>อาหารไทย - จีนไหหลำแท้ ถนนลาดหญ้า</p>
+        <p style="margin-top: 5px;">โทร: 081-6972739</p>
+        <div class="footer-links">
+            <a href="#" onclick="showPage('home')">หน้าแรก</a>
+            <a href="#" onclick="showPage('about')">ประวัติร้าน</a>
+            <a href="#" onclick="showPage('menu')">เมนู</a>
+            <a href="#" onclick="showPage('article')">บริการจัดเลี้ยง</a>
+            <a href="#" onclick="showPage('find')">แผนที่</a>
+        </div>
+        <p class="footer-copy">© 2026 COPYRIGHT RUNGFAH RESTAURANT</p>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        function showPage(p){
+            document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));
+            var t=document.getElementById('page-'+p);
+            if(t)t.classList.add('active');
+            document.querySelectorAll('.nav-links a[data-page]').forEach(a=>{
+                a.classList.remove('active-link');
+                if(a.getAttribute('data-page')===p)a.classList.add('active-link')
+            });
+            window.scrollTo({top:0,behavior:'smooth'});
+            document.getElementById('navLinks').classList.remove('active');
+            if(p==='article'){
+                setTimeout(()=>{
+                    document.querySelectorAll('#page-article .article-section').forEach(s=>observer.observe(s))
+                },100)
+            }
+        }
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('active')}
+        document.querySelectorAll('.nav-links a').forEach(l=>{
+            l.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('active'))
+        });
+        window.addEventListener('scroll',()=>{
+            document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+            document.getElementById('scrollTop').classList.toggle('show',window.scrollY>500);
+            var h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+            document.getElementById('readingProgress').style.width=(h>0?(document.documentElement.scrollTop/h)*100:0)+'%';
+        });
+        var observer=new IntersectionObserver(e=>{
+            e.forEach(n=>{if(n.isIntersecting)n.target.classList.add('visible')})
+        },{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+        document.querySelectorAll('.article-section').forEach(s=>observer.observe(s));
+    </script>
+</body>
+</html>
