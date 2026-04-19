@@ -4,1143 +4,750 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ร้านอาหารรุ่งฟ้า | Rungfah Restaurant - อาหารจีน-ไหหลำแท้</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/nNvmDPmW/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --red-primary: #C41E24;
-            --red-dark: #8B0000;
-            --red-deeper: #5C0A0A;
-            --gold-primary: #D4A528;
-            --gold-light: #F0D060;
-            --gold-bright: #FFD700;
-            --cream: #FFF8E7;
-            --black: #1A1A1A;
-            --white: #FFFFFF;
-        }
+        :root{--r:#C41E24;--rd:#8B0000;--rdp:#5C0A0A;--g:#D4A528;--gl:#F0D060;--gb:#FFD700;--cr:#FFF8E7;--bk:#1A1A1A;--w:#FFFFFF;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Noto Sans Thai',sans-serif;background:var(--cr);color:var(--bk);overflow-x:hidden;}
+        ::-webkit-scrollbar{width:10px;}
+        ::-webkit-scrollbar-track{background:var(--rd);}
+        ::-webkit-scrollbar-thumb{background:var(--g);border-radius:5px;}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Noto Sans Thai', sans-serif;
-            background: var(--cream); color: var(--black); overflow-x: hidden;
-        }
+        /* LOGO ZOOM - ไม่ให้เห็นกรอบ */
+        .pre-logo img,.nav-logo img,.hero-lm img,.about-img .logo-b img,.fli img{transform:scale(1.15);}
 
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--red-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 5px; }
+        /* PRELOADER */
+        .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--rd);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s,visibility .8s;}
+        .preloader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+        .pre-logo{width:120px;height:120px;border:4px solid var(--g);border-radius:50%;overflow:hidden;animation:pulse 1.5s ease-in-out infinite;}
+        .pre-logo img{width:100%;height:100%;object-fit:cover;}
+        .pre-text{color:var(--g);margin-top:20px;font-size:1.1rem;letter-spacing:3px;}
+        @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(212,165,40,.3);}50%{transform:scale(1.1);box-shadow:0 0 40px rgba(212,165,40,.6);}}
 
-        /* ===== PRELOADER ===== */
-        .preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--red-dark); z-index: 99999;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-        .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .preloader-logo {
-            width: 120px; height: 120px; border: 4px solid var(--gold-primary);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            animation: pulse-loader 1.5s ease-in-out infinite; background: var(--red-primary);
-        }
-        .preloader-logo span { font-size: 3rem; color: var(--gold-bright); font-weight: 900; }
-        .preloader-text { color: var(--gold-primary); margin-top: 20px; font-size: 1.2rem; letter-spacing: 3px; }
-        @keyframes pulse-loader {
-            0%,100% { transform: scale(1); box-shadow: 0 0 20px rgba(212,165,40,0.3); }
-            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(212,165,40,0.6); }
-        }
+        /* NAVBAR */
+        .nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:12px 0;transition:all .4s;background:transparent;}
+        .nav.scrolled{background:rgba(139,0,0,.97);padding:6px 0;box-shadow:0 4px 30px rgba(0,0,0,.4);backdrop-filter:blur(10px);}
+        .nav-c{max-width:1400px;margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between;}
+        .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--w);}
+        .nav-logo{width:48px;height:48px;border:3px solid var(--g);border-radius:50%;overflow:hidden;transition:transform .3s;flex-shrink:0;}
+        .nav-logo img{width:100%;height:100%;object-fit:cover;}
+        .nav-brand:hover .nav-logo{transform:rotate(10deg) scale(1.05);}
+        .nav-bt h1{font-size:1.15rem;font-weight:700;color:var(--gb);line-height:1.2;}
+        .nav-bt p{font-size:.62rem;color:var(--g);letter-spacing:2px;}
+        .nav-links{display:flex;align-items:center;gap:3px;list-style:none;}
+        .nav-links a{text-decoration:none;color:var(--w);padding:8px 14px;border-radius:8px;font-weight:500;font-size:.85rem;transition:all .3s;position:relative;}
+        .nav-links a::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--gb);transition:width .3s;}
+        .nav-links a:hover::after{width:60%;}
+        .nav-links a:hover{color:var(--gb);background:rgba(255,255,255,.1);}
+        .nav-links a.active{color:var(--gb);background:rgba(212,165,40,.15);}
+        .nav-cta{background:linear-gradient(135deg,var(--g),var(--gb))!important;color:var(--rd)!important;font-weight:700!important;padding:8px 20px!important;box-shadow:0 4px 15px rgba(212,165,40,.3);border-radius:10px!important;}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,165,40,.5)!important;}
+        .nav-cta::after{display:none!important;}
+        .ham{display:none;flex-direction:column;cursor:pointer;gap:5px;z-index:1001;}
+        .ham span{width:26px;height:3px;background:var(--gb);border-radius:3px;transition:all .3s;}
+        .ham.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+        .ham.active span:nth-child(2){opacity:0;}
+        .ham.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px);}
+        .mob-ov{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:998;}
+        .mob-ov.active{display:block;}
 
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            padding: 15px 0; transition: all 0.4s ease; background: transparent;
-        }
-        .navbar.scrolled {
-            background: rgba(139,0,0,0.97); padding: 8px 0;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4); backdrop-filter: blur(10px);
-        }
-        .nav-container {
-            max-width: 1400px; margin: 0 auto; padding: 0 30px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
-        .nav-logo {
-            width: 55px; height: 55px; background: var(--red-primary);
-            border: 3px solid var(--gold-primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: var(--gold-bright); font-weight: 900; transition: transform 0.3s;
-        }
-        .nav-brand:hover .nav-logo { transform: rotate(10deg) scale(1.05); }
-        .nav-brand-text h1 { font-size: 1.3rem; font-weight: 700; color: var(--gold-bright); line-height: 1.2; }
-        .nav-brand-text p { font-size: 0.7rem; color: var(--gold-primary); letter-spacing: 2px; }
-        .nav-links { display: flex; align-items: center; gap: 5px; list-style: none; }
-        .nav-links a {
-            text-decoration: none; color: var(--white); padding: 10px 18px; border-radius: 8px;
-            font-weight: 500; font-size: 0.9rem; transition: all 0.3s ease; position: relative;
-        }
-        .nav-links a::before {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 0; height: 2px; background: var(--gold-bright); transition: width 0.3s ease;
-        }
-        .nav-links a:hover::before { width: 60%; }
-        .nav-links a:hover { color: var(--gold-bright); background: rgba(255,255,255,0.1); }
-        .nav-links a.active { color: var(--gold-bright); background: rgba(212,165,40,0.15); }
-        .nav-cta {
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-bright)) !important;
-            color: var(--red-dark) !important; font-weight: 700 !important;
-            padding: 10px 25px !important; box-shadow: 0 4px 15px rgba(212,165,40,0.3);
-        }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,165,40,0.5) !important; }
-        .nav-cta::before { display: none !important; }
-        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
-        .hamburger span { width: 30px; height: 3px; background: var(--gold-bright); border-radius: 3px; transition: all 0.3s ease; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-        .mobile-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
-        .mobile-overlay.active { display: block; }
+        /* HERO */
+        .hero{position:relative;height:100vh;min-height:650px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--rd);}
+        .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;}
+        .hs{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity 1.5s;}
+        .hs.active{opacity:1;}
+        .hs:nth-child(1){background:linear-gradient(135deg,#8B0000,#C41E24 30%,#5C0A0A);}
+        .hs:nth-child(2){background:linear-gradient(135deg,#5C0A0A,#8B0000 50%,#C41E24);}
+        .hs:nth-child(3){background:linear-gradient(135deg,#C41E24,#5C0A0A 50%,#8B0000);}
+        .hero-ov{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,.4) 100%);}
+        .hero-decor{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+        .ltn{position:absolute;width:50px;animation:sw 4s ease-in-out infinite;}
+        .ltn:nth-child(1){top:-10px;left:8%;}
+        .ltn:nth-child(2){top:-10px;right:8%;animation-delay:1s;}
+        .ltn:nth-child(3){top:-10px;left:25%;animation-delay:.5s;}
+        .ltn:nth-child(4){top:-10px;right:25%;animation-delay:1.5s;}
+        .lb{width:42px;height:58px;background:linear-gradient(180deg,#FF4444,#CC0000,#FF4444);border-radius:50%;margin:0 auto;position:relative;box-shadow:0 0 20px rgba(255,50,50,.5);}
+        .lb::before{content:'福';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gb);font-size:1.2rem;font-weight:900;}
+        .lt{width:24px;height:8px;background:var(--g);margin:0 auto;border-radius:3px 3px 0 0;}
+        .ls{width:2px;height:24px;background:var(--g);margin:0 auto;}
+        .lbo{width:24px;height:6px;background:var(--g);margin:0 auto;border-radius:0 0 3px 3px;}
+        .lta{width:2px;height:18px;background:var(--g);margin:0 auto;position:relative;}
+        .lta::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:6px;height:6px;background:var(--gb);border-radius:50%;}
+        @keyframes sw{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+        .corner{position:absolute;width:100px;height:100px;border:3px solid var(--g);opacity:.2;pointer-events:none;z-index:5;}
+        .ctl{top:80px;left:25px;border-right:none;border-bottom:none;}
+        .ctr{top:80px;right:25px;border-left:none;border-bottom:none;}
+        .cbl{bottom:25px;left:25px;border-right:none;border-top:none;}
+        .cbr{bottom:25px;right:25px;border-left:none;border-top:none;}
+        .hero-ct{position:relative;z-index:10;text-align:center;padding:0 20px;}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,40,.15);border:1px solid var(--g);padding:7px 22px;border-radius:50px;margin-bottom:18px;animation:fid 1s ease .3s both;}
+        .hero-badge span{color:var(--gb);font-size:.82rem;font-weight:500;letter-spacing:2px;}
+        .hero-lm{width:130px;height:130px;margin:0 auto 18px;border-radius:50%;border:4px solid var(--g);overflow:hidden;box-shadow:0 0 50px rgba(212,165,40,.3);animation:fid 1s ease .5s both;background:var(--r);}
+        .hero-lm img{width:100%;height:100%;object-fit:cover;}
+        .hero-h{font-size:3.8rem;font-weight:900;color:var(--w);margin-bottom:6px;text-shadow:0 4px 30px rgba(0,0,0,.5);animation:fiu 1s ease .7s both;line-height:1.1;}
+        .hero-h .go{color:var(--gb);display:block;font-size:2.5rem;}
+        .hero-sub{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--g);letter-spacing:6px;margin-bottom:15px;animation:fiu 1s ease .9s both;}
+        .hero-desc{font-size:1.05rem;color:rgba(255,255,255,.85);max-width:580px;margin:0 auto 28px;line-height:1.8;animation:fiu 1s ease 1.1s both;}
+        .hero-btns{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;animation:fiu 1s ease 1.3s both;}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.92rem;transition:all .3s;cursor:pointer;border:none;font-family:'Noto Sans Thai',sans-serif;}
+        .btn-g{background:linear-gradient(135deg,var(--g),var(--gb));color:var(--rd);box-shadow:0 4px 20px rgba(212,165,40,.4);}
+        .btn-g:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(212,165,40,.6);}
+        .btn-o{background:transparent;color:var(--w);border:2px solid var(--g);}
+        .btn-o:hover{background:var(--g);color:var(--rd);transform:translateY(-3px);}
+        .hero-scroll{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:10;animation:bounce 2s infinite;}
+        .hero-scroll a{color:var(--g);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.7rem;letter-spacing:2px;}
+        .sci{width:26px;height:42px;border:2px solid var(--g);border-radius:13px;position:relative;}
+        .sci::before{content:'';position:absolute;top:7px;left:50%;transform:translateX(-50%);width:3px;height:10px;background:var(--gb);border-radius:2px;animation:sd 2s infinite;}
+        @keyframes sd{0%{opacity:1;top:7px;}100%{opacity:0;top:24px;}}
+        @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-8px);}}
+        @keyframes fid{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
+        @keyframes fiu{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-        /* ===== HERO ===== */
-        .hero {
-            position: relative; height: 100vh; min-height: 700px;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden; background: var(--red-dark);
-        }
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .hero-bg-slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; transition: opacity 1.5s ease;
-        }
-        .hero-bg-slide.active { opacity: 1; }
-        .hero-bg-slide:nth-child(1) { background: linear-gradient(135deg, #8B0000, #C41E24 30%, #5C0A0A); }
-        .hero-bg-slide:nth-child(2) { background: linear-gradient(135deg, #5C0A0A, #8B0000 50%, #C41E24); }
-        .hero-bg-slide:nth-child(3) { background: linear-gradient(135deg, #C41E24, #5C0A0A 50%, #8B0000); }
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%),
-            url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23D4A528' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
+        /* SECTIONS */
+        section{padding:85px 0;position:relative;}
+        .ctn{max-width:1200px;margin:0 auto;padding:0 28px;}
+        .sh{text-align:center;margin-bottom:50px;}
+        .sb{display:inline-flex;align-items:center;gap:6px;background:rgba(196,30,36,.08);border:1px solid rgba(196,30,36,.2);padding:5px 18px;border-radius:50px;margin-bottom:10px;font-size:.8rem;color:var(--r);font-weight:500;}
+        .stt{font-size:2.4rem;font-weight:900;color:var(--rd);margin-bottom:10px;}
+        .stt .hl{color:var(--g);}
+        .sli{width:70px;height:4px;background:linear-gradient(90deg,var(--r),var(--g));margin:0 auto 15px;border-radius:2px;}
+        .sde{font-size:.95rem;color:#666;max-width:560px;margin:0 auto;line-height:1.8;}
 
-        .hero-decor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .lantern { position: absolute; width: 60px; animation: lanternSwing 4s ease-in-out infinite; }
-        .lantern:nth-child(1) { top: -10px; left: 8%; }
-        .lantern:nth-child(2) { top: -10px; right: 8%; animation-delay: 1s; }
-        .lantern:nth-child(3) { top: -10px; left: 25%; animation-delay: 0.5s; }
-        .lantern:nth-child(4) { top: -10px; right: 25%; animation-delay: 1.5s; }
-        .lantern-body {
-            width: 50px; height: 70px; background: linear-gradient(180deg, #FF4444, #CC0000, #FF4444);
-            border-radius: 50%; margin: 0 auto; position: relative;
-            box-shadow: 0 0 30px rgba(255,50,50,0.5), inset 0 0 20px rgba(255,200,0,0.3);
-        }
-        .lantern-body::before {
-            content: '福'; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%,-50%); color: var(--gold-bright); font-size: 1.5rem; font-weight: 900;
-        }
-        .lantern-top { width: 30px; height: 12px; background: var(--gold-primary); margin: 0 auto; border-radius: 3px 3px 0 0; }
-        .lantern-string { width: 2px; height: 30px; background: var(--gold-primary); margin: 0 auto; }
-        .lantern-bottom { width: 30px; height: 8px; background: var(--gold-primary); margin: 0 auto; border-radius: 0 0 3px 3px; }
-        .lantern-tassel { width: 2px; height: 25px; background: var(--gold-primary); margin: 0 auto; position: relative; }
-        .lantern-tassel::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 8px; height: 8px; background: var(--gold-bright); border-radius: 50%;
-        }
-        @keyframes lanternSwing { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        /* ABOUT */
+        .about{background:var(--w);}
+        .about-g{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+        .about-img{width:100%;height:420px;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15);position:relative;background:linear-gradient(135deg,var(--r),var(--rd));display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--w);}
+        .about-img .logo-b{width:130px;height:130px;border-radius:50%;border:4px solid var(--g);overflow:hidden;margin-bottom:12px;}
+        .about-img .logo-b img{width:100%;height:100%;object-fit:cover;}
+        .about-img .t1{font-size:1.3rem;font-weight:700;}
+        .about-img .t2{font-size:.8rem;margin-top:4px;opacity:.8;}
+        .about-yr{position:absolute;top:18px;left:18px;background:var(--g);color:var(--rd);padding:12px 16px;border-radius:12px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,.2);}
+        .about-yr .y{font-size:1.7rem;font-weight:900;display:block;}
+        .about-yr .l{font-size:.65rem;}
+        .about-ct h3{font-size:2rem;font-weight:900;color:var(--rd);margin-bottom:15px;line-height:1.3;}
+        .about-ct h3 .go{color:var(--g);}
+        .about-ct p{font-size:.95rem;color:#555;line-height:1.9;margin-bottom:18px;}
+        .about-f{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+        .af{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--cr);border-radius:10px;transition:all .3s;}
+        .af:hover{background:rgba(196,30,36,.05);transform:translateX(4px);}
+        .af-i{width:38px;height:38px;background:linear-gradient(135deg,var(--r),var(--rd));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+        .af span{font-weight:600;font-size:.83rem;}
+        .hours-box{background:var(--cr);border-radius:12px;padding:15px 20px;margin-bottom:18px;border-left:4px solid var(--r);}
+        .hours-box h4{font-size:1rem;font-weight:700;color:var(--rd);margin-bottom:8px;}
+        .hours-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:.88rem;}
+        .hours-row:last-child{border:none;}
+        .hours-row .day{color:#555;font-weight:500;}
+        .hours-row .time{color:var(--bk);font-weight:600;}
+        .hours-closed{color:var(--r);font-weight:600;font-size:.85rem;margin-top:8px;}
 
-        .corner-decor {
-            position: absolute; width: 150px; height: 150px;
-            border: 3px solid var(--gold-primary); opacity: 0.3; pointer-events: none; z-index: 5;
-        }
-        .corner-decor.tl { top: 80px; left: 30px; border-right: none; border-bottom: none; }
-        .corner-decor.tr { top: 80px; right: 30px; border-left: none; border-bottom: none; }
-        .corner-decor.bl { bottom: 30px; left: 30px; border-right: none; border-top: none; }
-        .corner-decor.br { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+        /* SETS */
+        .sets{background:linear-gradient(135deg,var(--rd),var(--rdp));color:var(--w);}
+        .sets .sb{background:rgba(212,165,40,.15);border-color:rgba(212,165,40,.3);color:var(--gb);}
+        .sets .stt{color:var(--w);}.sets .stt .hl{color:var(--gb);}
+        .sets .sde{color:rgba(255,255,255,.7);}
+        .sets-g{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+        .sc{background:rgba(255,255,255,.06);border:2px solid rgba(212,165,40,.2);border-radius:18px;padding:32px 22px;text-align:center;transition:all .4s;position:relative;overflow:hidden;}
+        .sc:hover{transform:translateY(-6px);border-color:var(--g);background:rgba(255,255,255,.1);}
+        .sc.feat{border-color:var(--g);transform:scale(1.05);background:rgba(212,165,40,.1);}
+        .sc.feat:hover{transform:scale(1.05) translateY(-6px);}
+        .sc .rib{position:absolute;top:14px;right:-34px;background:var(--g);color:var(--rd);padding:4px 38px;font-size:.7rem;font-weight:700;transform:rotate(45deg);}
+        .sc-i{font-size:3rem;margin-bottom:12px;display:block;}
+        .sc-n{font-size:1.3rem;font-weight:800;color:var(--gb);margin-bottom:2px;}
+        .sc-en{font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:2px;}
+        .sc-d{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:12px;}
+        .sc-p{font-size:2.1rem;font-weight:900;color:var(--gb);}
+        .sc-p small{font-size:.85rem;font-weight:400;color:rgba(255,255,255,.5);}
+        .sc-dv{width:50px;height:2px;background:var(--g);margin:10px auto;opacity:.5;}
 
-        .hero-content { position: relative; z-index: 10; text-align: center; padding: 0 20px; }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(212,165,40,0.15); border: 1px solid var(--gold-primary);
-            padding: 8px 25px; border-radius: 50px; margin-bottom: 25px;
-            animation: fadeInDown 1s ease 0.3s both;
-        }
-        .hero-badge span { color: var(--gold-bright); font-size: 0.9rem; font-weight: 500; letter-spacing: 2px; }
-        .hero-logo-main {
-            width: 150px; height: 150px; margin: 0 auto 25px; border-radius: 50%;
-            border: 4px solid var(--gold-primary); overflow: hidden;
-            box-shadow: 0 0 50px rgba(212,165,40,0.3); animation: fadeInDown 1s ease 0.5s both;
-            background: var(--red-primary); display: flex; align-items: center;
-            justify-content: center; flex-direction: column;
-        }
-        .hero-logo-main .cn { font-size: 2.5rem; color: var(--gold-bright); font-weight: 900; line-height: 1; }
-        .hero-logo-main .th { font-size: 0.7rem; color: var(--gold-primary); margin-top: 5px; }
-        .hero-title {
-            font-size: 4.5rem; font-weight: 900; color: var(--white); margin-bottom: 10px;
-            text-shadow: 0 4px 30px rgba(0,0,0,0.5); animation: fadeInUp 1s ease 0.7s both; line-height: 1.1;
-        }
-        .hero-title .gold { color: var(--gold-bright); display: block; font-size: 3rem; }
-        .hero-sub {
-            font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold-primary);
-            letter-spacing: 8px; margin-bottom: 20px; animation: fadeInUp 1s ease 0.9s both;
-        }
-        .hero-desc {
-            font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 600px;
-            margin: 0 auto 35px; line-height: 1.8; animation: fadeInUp 1s ease 1.1s both;
-        }
-        .hero-buttons {
-            display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
-            animation: fadeInUp 1s ease 1.3s both;
-        }
-        .btn {
-            display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px;
-            border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1rem;
-            transition: all 0.3s ease; cursor: pointer; border: none; font-family: 'Noto Sans Thai', sans-serif;
-        }
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-bright));
-            color: var(--red-dark); box-shadow: 0 4px 20px rgba(212,165,40,0.4);
-        }
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212,165,40,0.6); }
-        .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--gold-primary); }
-        .btn-outline:hover { background: var(--gold-primary); color: var(--red-dark); transform: translateY(-3px); }
+        /* MENU */
+        .menu{background:var(--w);}
+        .mtabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:30px;}
+        .mt{padding:8px 18px;border:2px solid var(--r);background:transparent;color:var(--r);border-radius:50px;cursor:pointer;font-family:'Noto Sans Thai',sans-serif;font-size:.82rem;font-weight:600;transition:all .3s;}
+        .mt:hover,.mt.active{background:var(--r);color:var(--w);}
+        .ms{display:none;}.ms.active{display:block;}
+        .mst{font-size:1.25rem;font-weight:800;color:var(--rd);padding:10px 20px;background:rgba(196,30,36,.05);border-left:4px solid var(--r);border-radius:0 10px 10px 0;margin-bottom:15px;}
+        .mg{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:22px;}
+        .mi{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--cr);border-radius:10px;transition:all .3s;border:1px solid transparent;}
+        .mi:hover{border-color:var(--r);background:var(--w);transform:translateX(4px);box-shadow:0 3px 12px rgba(0,0,0,.07);}
+        .mic{width:36px;height:36px;background:var(--r);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--w);font-size:.62rem;font-weight:700;flex-shrink:0;}
+        .mii{flex:1;min-width:0;}
+        .mii h4{font-size:.9rem;font-weight:600;color:var(--bk);margin-bottom:1px;}
+        .mii p{font-size:.75rem;color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .mip{font-weight:700;color:var(--r);white-space:nowrap;font-size:.85rem;text-align:right;}
+        .mcta{text-align:center;margin-top:40px;padding:30px;background:linear-gradient(135deg,var(--r),var(--rd));border-radius:18px;color:var(--w);}
+        .mcta h3{font-size:1.5rem;font-weight:800;margin-bottom:8px;}
+        .mcta p{color:rgba(255,255,255,.8);margin-bottom:15px;font-size:.9rem;}
+        .mcta-b{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 
-        .hero-scroll {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            z-index: 10; animation: bounce 2s infinite;
-        }
-        .hero-scroll a {
-            color: var(--gold-primary); text-decoration: none;
-            display: flex; flex-direction: column; align-items: center; gap: 5px;
-            font-size: 0.8rem; letter-spacing: 2px;
-        }
-        .scroll-icon {
-            width: 30px; height: 50px; border: 2px solid var(--gold-primary);
-            border-radius: 15px; position: relative;
-        }
-        .scroll-icon::before {
-            content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-            width: 4px; height: 12px; background: var(--gold-bright); border-radius: 2px;
-            animation: scrollDot 2s infinite;
-        }
-        @keyframes scrollDot { 0% { opacity: 1; top: 8px; } 100% { opacity: 0; top: 28px; } }
-        @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        /* GALLERY */
+        .gallery{background:var(--cr);}
+        .gal-g{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,190px);gap:10px;}
+        .gi{border-radius:12px;overflow:hidden;cursor:pointer;transition:all .4s;position:relative;}
+        .gi:hover{transform:scale(1.03);box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:2;}
+        .gi:nth-child(1){grid-column:span 2;grid-row:span 2;}
+        .gp{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;font-size:2.2rem;color:var(--w);position:relative;}
+        .gp::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.5) 100%);}
+        .gp>*{position:relative;z-index:1;}
+        .gp .lbl{font-size:.75rem;font-weight:600;}
+        .g1{background:linear-gradient(135deg,#D32F2F,#B71C1C);}
+        .g2{background:linear-gradient(135deg,#E65100,#BF360C);}
+        .g3{background:linear-gradient(135deg,#F57F17,#E65100);}
+        .g4{background:linear-gradient(135deg,#2E7D32,#1B5E20);}
+        .g5{background:linear-gradient(135deg,#C62828,#880E4F);}
+        .g6{background:linear-gradient(135deg,#4E342E,#3E2723);}
+        .gov{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(139,0,0,.7);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;z-index:5;}
+        .gi:hover .gov{opacity:1;}
+        .gov span{color:var(--w);font-size:2rem;}
 
-        /* ===== SECTIONS ===== */
-        section { padding: 100px 0; position: relative; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(196,30,36,0.08); border: 1px solid rgba(196,30,36,0.2);
-            padding: 6px 20px; border-radius: 50px; margin-bottom: 15px;
-            font-size: 0.85rem; color: var(--red-primary); font-weight: 500;
-        }
-        .section-title { font-size: 2.8rem; font-weight: 900; color: var(--red-dark); margin-bottom: 15px; }
-        .section-title .hl { color: var(--gold-primary); }
-        .section-line {
-            width: 80px; height: 4px;
-            background: linear-gradient(90deg, var(--red-primary), var(--gold-primary));
-            margin: 0 auto 20px; border-radius: 2px;
-        }
-        .section-desc { font-size: 1.05rem; color: #666; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+        /* REVIEWS */
+        .reviews{background:var(--w);}
+        .rev-g{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+        .rc{background:var(--cr);border-radius:16px;padding:28px;transition:all .3s;position:relative;}
+        .rc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.1);}
+        .rc::before{content:'"';position:absolute;top:6px;right:20px;font-size:4rem;color:var(--r);opacity:.1;font-family:serif;}
+        .rs{display:flex;gap:2px;margin-bottom:10px;}
+        .rs span{color:var(--gb);font-size:.95rem;}
+        .rte{font-size:.88rem;color:#555;line-height:1.8;margin-bottom:15px;}
+        .ra{display:flex;align-items:center;gap:10px;}
+        .rav{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;color:var(--w);}
+        .r1{background:linear-gradient(135deg,#E91E63,#C2185B);}
+        .r2{background:linear-gradient(135deg,#2196F3,#1565C0);}
+        .r3{background:linear-gradient(135deg,#4CAF50,#2E7D32);}
+        .rai h5{font-size:.85rem;font-weight:600;}
+        .rai p{font-size:.72rem;color:#999;}
 
-        /* ===== ABOUT ===== */
-        .about { background: var(--white); }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-img {
-            width: 100%; height: 480px; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15); position: relative;
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--white);
-        }
-        .about-img .icon { font-size: 5rem; margin-bottom: 15px; }
-        .about-img .text1 { font-size: 1.5rem; font-weight: 700; }
-        .about-img .text2 { font-size: 0.9rem; margin-top: 5px; opacity: 0.8; }
-        .about-year {
-            position: absolute; top: 20px; left: 20px;
-            background: var(--gold-primary); color: var(--red-dark);
-            padding: 15px 20px; border-radius: 15px; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .about-year .yr { font-size: 2rem; font-weight: 900; display: block; }
-        .about-year .lb { font-size: 0.75rem; }
-        .about-content h3 { font-size: 2.3rem; font-weight: 900; color: var(--red-dark); margin-bottom: 20px; line-height: 1.3; }
-        .about-content h3 .gold { color: var(--gold-primary); }
-        .about-content p { font-size: 1.05rem; color: #555; line-height: 1.9; margin-bottom: 25px; }
-        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .about-feat {
-            display: flex; align-items: center; gap: 12px;
-            padding: 14px 18px; background: var(--cream); border-radius: 12px; transition: all 0.3s;
-        }
-        .about-feat:hover { background: rgba(196,30,36,0.05); transform: translateX(5px); }
-        .about-feat-icon {
-            width: 42px; height: 42px;
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; flex-shrink: 0;
-        }
-        .about-feat span { font-weight: 600; font-size: 0.9rem; }
+        /* CATERING */
+        .catering{background:linear-gradient(135deg,var(--rd),var(--rdp));color:var(--w);text-align:center;overflow:hidden;position:relative;}
+        .catering::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(212,165,40,.05) 0%,transparent 70%);animation:rot 30s linear infinite;}
+        @keyframes rot{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+        .cat-ct{position:relative;z-index:2;}
+        .catering h2{font-size:2.3rem;font-weight:900;margin-bottom:15px;}
+        .catering h2 .go{color:var(--gb);}
+        .cat-ct>p{font-size:1rem;color:rgba(255,255,255,.8);max-width:650px;margin:0 auto 8px;line-height:1.8;}
+        .cat-f{display:flex;justify-content:center;gap:28px;margin:25px 0;flex-wrap:wrap;}
+        .cf{text-align:center;}
+        .cf-i{width:56px;height:56px;background:rgba(212,165,40,.15);border:2px solid var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 6px;}
+        .cf span{font-size:.78rem;color:var(--g);font-weight:500;}
+        .cat-b{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px;}
 
-        /* ===== AUSPICIOUS SETS ===== */
-        .sets { background: linear-gradient(135deg, var(--red-dark), var(--red-deeper)); color: var(--white); }
-        .sets .section-badge { background: rgba(212,165,40,0.15); border-color: rgba(212,165,40,0.3); color: var(--gold-bright); }
-        .sets .section-title { color: var(--white); }
-        .sets .section-title .hl { color: var(--gold-bright); }
-        .sets .section-desc { color: rgba(255,255,255,0.7); }
-        .sets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .set-card {
-            background: rgba(255,255,255,0.06); border: 2px solid rgba(212,165,40,0.2);
-            border-radius: 20px; padding: 40px 30px; text-align: center;
-            transition: all 0.4s ease; position: relative; overflow: hidden;
-        }
-        .set-card:hover { transform: translateY(-8px); border-color: var(--gold-primary); background: rgba(255,255,255,0.1); }
-        .set-card.featured { border-color: var(--gold-primary); transform: scale(1.05); background: rgba(212,165,40,0.1); }
-        .set-card.featured:hover { transform: scale(1.05) translateY(-8px); }
-        .set-card .ribbon {
-            position: absolute; top: 15px; right: -35px;
-            background: var(--gold-primary); color: var(--red-dark);
-            padding: 5px 40px; font-size: 0.75rem; font-weight: 700;
-            transform: rotate(45deg);
-        }
-        .set-icon { font-size: 4rem; margin-bottom: 20px; display: block; }
-        .set-name { font-size: 1.5rem; font-weight: 800; color: var(--gold-bright); margin-bottom: 5px; }
-        .set-detail { color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 20px; }
-        .set-price {
-            font-size: 2.5rem; font-weight: 900; color: var(--gold-bright);
-            text-shadow: 0 2px 10px rgba(212,165,40,0.3);
-        }
-        .set-price small { font-size: 1rem; font-weight: 400; color: rgba(255,255,255,0.5); }
-        .set-divider {
-            width: 60px; height: 2px; background: var(--gold-primary);
-            margin: 15px auto; opacity: 0.5;
-        }
-        .set-note { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+        /* CONTACT */
+        .contact{background:var(--cr);}
+        .con-g{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+        .con-items{display:flex;flex-direction:column;gap:16px;}
+        .ci{display:flex;gap:16px;padding:20px;background:var(--w);border-radius:14px;transition:all .3s;}
+        .ci:hover{transform:translateX(4px);box-shadow:0 4px 18px rgba(0,0,0,.07);}
+        .ci-ic{width:48px;height:48px;background:linear-gradient(135deg,var(--r),var(--rd));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+        .ci-t h4{font-size:.95rem;font-weight:700;color:var(--rd);margin-bottom:3px;}
+        .ci-t p{font-size:.88rem;color:#666;line-height:1.6;}
+        .ci-t a{color:var(--r);text-decoration:none;font-weight:600;}
+        .ci-t a:hover{text-decoration:underline;}
+        .con-map{border-radius:16px;overflow:hidden;box-shadow:0 8px 35px rgba(0,0,0,.1);height:100%;min-height:360px;}
+        .con-map iframe{width:100%;height:100%;border:none;}
 
-        /* ===== MENU ===== */
-        .menu { background: var(--white); }
-        .menu-tabs {
-            display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 40px;
-        }
-        .menu-tab {
-            padding: 10px 22px; border: 2px solid var(--red-primary); background: transparent;
-            color: var(--red-primary); border-radius: 50px; cursor: pointer;
-            font-family: 'Noto Sans Thai', sans-serif; font-size: 0.9rem; font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .menu-tab:hover, .menu-tab.active {
-            background: var(--red-primary); color: var(--white);
-        }
+        /* FOOTER */
+        .footer{background:#0D0D0D;color:var(--w);padding:50px 0 0;}
+        .f-g{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:30px;max-width:1200px;margin:0 auto;padding:0 28px 30px;}
+        .f-brand .fl{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+        .fli{width:42px;height:42px;border:2px solid var(--g);border-radius:50%;overflow:hidden;flex-shrink:0;}
+        .fli img{width:100%;height:100%;object-fit:cover;}
+        .flt h3{color:var(--gb);font-size:1rem;}
+        .flt p{color:var(--g);font-size:.6rem;letter-spacing:2px;}
+        .f-brand>p{color:#888;font-size:.8rem;line-height:1.7;margin-bottom:10px;}
+        .f-soc{display:flex;gap:8px;}
+        .f-soc a{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--w);text-decoration:none;font-size:.9rem;transition:all .3s;}
+        .f-soc a:hover{background:var(--r);transform:translateY(-3px);}
+        .fc h4{color:var(--gb);font-size:.9rem;margin-bottom:14px;font-weight:700;}
+        .fc ul{list-style:none;}
+        .fc ul li{margin-bottom:6px;}
+        .fc ul li a{color:#888;text-decoration:none;font-size:.8rem;transition:all .3s;}
+        .fc ul li a:hover{color:var(--g);padding-left:4px;}
+        .fci{display:flex;gap:7px;margin-bottom:9px;color:#888;font-size:.8rem;}
+        .fci span:first-child{font-size:.9rem;flex-shrink:0;}
+        .f-bot{border-top:1px solid rgba(255,255,255,.08);padding:16px 28px;text-align:center;}
+        .f-bot p{color:#555;font-size:.75rem;}
 
-        .menu-section { display: none; }
-        .menu-section.active { display: block; }
+        /* FLOAT */
+        .float{position:fixed;bottom:20px;right:20px;z-index:100;display:flex;flex-direction:column;gap:8px;}
+        .fbb{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--w);text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.3);transition:all .3s;}
+        .fbb:hover{transform:scale(1.1);}
+        .fbb.phone{background:linear-gradient(135deg,#4CAF50,#2E7D32);}
+        .fbb.face{background:linear-gradient(135deg,#1877F2,#0D47A1);}
+        .fbb.totop{background:linear-gradient(135deg,var(--r),var(--rd));opacity:0;visibility:hidden;transition:all .3s;}
+        .fbb.totop.vis{opacity:1;visibility:visible;}
 
-        .menu-section-title {
-            font-size: 1.5rem; font-weight: 800; color: var(--red-dark);
-            padding: 15px 25px; background: rgba(196,30,36,0.05);
-            border-left: 4px solid var(--red-primary); border-radius: 0 12px 12px 0;
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
-        }
+        /* ANIM */
+        .fi{opacity:0;transform:translateY(35px);transition:all .8s;}
+        .fi.vis{opacity:1;transform:translateY(0);}
+        .fla{opacity:0;transform:translateX(-40px);transition:all .8s;}
+        .fla.vis{opacity:1;transform:translateX(0);}
+        .fra{opacity:0;transform:translateX(40px);transition:all .8s;}
+        .fra.vis{opacity:1;transform:translateX(0);}
 
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 30px; }
-
-        .menu-item {
-            display: flex; align-items: center; gap: 15px; padding: 16px 20px;
-            background: var(--cream); border-radius: 12px; transition: all 0.3s ease;
-            border: 1px solid transparent;
+        @media(max-width:1024px){
+            .hero-h{font-size:3rem;}.hero-h .go{font-size:2rem;}
+            .sets-g{grid-template-columns:repeat(3,1fr);}.sc.feat{transform:scale(1);}
+            .gal-g{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,170px);}.gi:nth-child(1){grid-column:span 1;grid-row:span 1;}.gi:nth-child(6){display:none;}
+            .f-g{grid-template-columns:repeat(2,1fr);}
         }
-        .menu-item:hover {
-            border-color: var(--red-primary); background: var(--white);
-            transform: translateX(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        @media(max-width:768px){
+            .ham{display:flex;}
+            .nav-links{position:fixed;top:0;right:-100%;width:80%;max-width:320px;height:100vh;background:var(--rd);flex-direction:column;align-items:stretch;padding:70px 22px 22px;transition:right .4s;box-shadow:-10px 0 30px rgba(0,0,0,.3);}
+            .nav-links.open{right:0;}
+            .nav-links a{padding:13px 16px;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.05);}
+            .hero-h{font-size:2.1rem;}.hero-h .go{font-size:1.5rem;}.hero-sub{font-size:.88rem;letter-spacing:3px;}
+            .about-g{grid-template-columns:1fr;gap:22px;}.about-f{grid-template-columns:1fr;}
+            .sets-g{grid-template-columns:1fr;}
+            .mg{grid-template-columns:1fr;}
+            .gal-g{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,140px);}.gi:nth-child(5),.gi:nth-child(6){display:none;}
+            .rev-g{grid-template-columns:1fr;}
+            .con-g{grid-template-columns:1fr;}.con-map{min-height:260px;}
+            .catering h2{font-size:1.7rem;}.stt{font-size:1.8rem;}
+            .f-g{grid-template-columns:1fr;}
+            .ltn:nth-child(3),.ltn:nth-child(4){display:none;}.corner{display:none;}
         }
-
-        .menu-item-code {
-            width: 40px; height: 40px; background: var(--red-primary);
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            color: var(--white); font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
-        }
-
-        .menu-item-info { flex: 1; min-width: 0; }
-        .menu-item-info h4 { font-size: 1rem; font-weight: 600; color: var(--black); margin-bottom: 2px; }
-        .menu-item-info p { font-size: 0.8rem; color: #999; }
-
-        .menu-item-price {
-            font-weight: 700; color: var(--red-primary); white-space: nowrap; font-size: 0.95rem;
-            text-align: right;
-        }
-        .menu-item-price small { font-size: 0.75rem; color: #999; font-weight: 400; display: block; }
-
-        .menu-cta-area {
-            text-align: center; margin-top: 50px; padding: 40px;
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            border-radius: 20px; color: var(--white);
-        }
-        .menu-cta-area h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
-        .menu-cta-area p { color: rgba(255,255,255,0.8); margin-bottom: 20px; font-size: 1rem; }
-        .menu-cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-
-        /* ===== GALLERY ===== */
-        .gallery { background: var(--cream); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 220px); gap: 12px; }
-        .gallery-item {
-            border-radius: 15px; overflow: hidden; cursor: pointer; transition: all 0.4s ease; position: relative;
-        }
-        .gallery-item:hover { transform: scale(1.03); box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 2; }
-        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-        .gp {
-            width: 100%; height: 100%; display: flex; align-items: center;
-            justify-content: center; flex-direction: column; gap: 8px;
-            font-size: 3rem; color: var(--white); position: relative;
-        }
-        .gp::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5) 100%);
-        }
-        .gp > * { position: relative; z-index: 1; }
-        .gp .label { font-size: 0.85rem; font-weight: 600; }
-        .g1 { background: linear-gradient(135deg, #D32F2F, #B71C1C); }
-        .g2 { background: linear-gradient(135deg, #E65100, #BF360C); }
-        .g3 { background: linear-gradient(135deg, #F57F17, #E65100); }
-        .g4 { background: linear-gradient(135deg, #2E7D32, #1B5E20); }
-        .g5 { background: linear-gradient(135deg, #C62828, #880E4F); }
-        .g6 { background: linear-gradient(135deg, #4E342E, #3E2723); }
-        .gallery-ov {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(139,0,0,0.7); display: flex; align-items: center;
-            justify-content: center; opacity: 0; transition: opacity 0.3s; z-index: 5;
-        }
-        .gallery-item:hover .gallery-ov { opacity: 1; }
-        .gallery-ov span { color: var(--white); font-size: 2.5rem; }
-
-        /* ===== REVIEWS ===== */
-        .reviews { background: var(--white); }
-        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .review-card {
-            background: var(--cream); border-radius: 20px; padding: 35px;
-            transition: all 0.3s ease; position: relative;
-        }
-        .review-card:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(0,0,0,0.1); }
-        .review-card::before {
-            content: '"'; position: absolute; top: 10px; right: 25px;
-            font-size: 5rem; color: var(--red-primary); opacity: 0.1; font-family: serif;
-        }
-        .review-stars { display: flex; gap: 3px; margin-bottom: 15px; }
-        .review-stars span { color: var(--gold-bright); font-size: 1.1rem; }
-        .review-text { font-size: 0.95rem; color: #555; line-height: 1.8; margin-bottom: 20px; }
-        .review-author { display: flex; align-items: center; gap: 12px; }
-        .review-avatar {
-            width: 45px; height: 45px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; font-weight: 700; color: var(--white);
-        }
-        .ra1 { background: linear-gradient(135deg, #E91E63, #C2185B); }
-        .ra2 { background: linear-gradient(135deg, #2196F3, #1565C0); }
-        .ra3 { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
-        .review-author-info h5 { font-size: 0.95rem; font-weight: 600; }
-        .review-author-info p { font-size: 0.8rem; color: #999; }
-
-        /* ===== CATERING ===== */
-        .catering {
-            background: linear-gradient(135deg, var(--red-dark), var(--red-deeper));
-            color: var(--white); text-align: center; overflow: hidden; position: relative;
-        }
-        .catering::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(212,165,40,0.05) 0%, transparent 70%);
-            animation: rotateBg 30s linear infinite;
-        }
-        @keyframes rotateBg { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .catering-content { position: relative; z-index: 2; }
-        .catering h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; }
-        .catering h2 .gold { color: var(--gold-bright); }
-        .catering p { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto 10px; line-height: 1.8; }
-        .catering-feats { display: flex; justify-content: center; gap: 35px; margin: 35px 0; flex-wrap: wrap; }
-        .catering-feat { text-align: center; }
-        .catering-feat-icon {
-            width: 65px; height: 65px; background: rgba(212,165,40,0.15);
-            border: 2px solid var(--gold-primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 8px;
-        }
-        .catering-feat span { font-size: 0.85rem; color: var(--gold-primary); font-weight: 500; }
-        .catering-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
-
-        /* ===== CONTACT ===== */
-        .contact { background: var(--cream); }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        .contact-items { display: flex; flex-direction: column; gap: 20px; }
-        .contact-item {
-            display: flex; gap: 20px; padding: 25px; background: var(--white);
-            border-radius: 15px; transition: all 0.3s ease;
-        }
-        .contact-item:hover { transform: translateX(5px); box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
-        .contact-icon {
-            width: 55px; height: 55px;
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            border-radius: 12px; display: flex; align-items: center;
-            justify-content: center; font-size: 1.5rem; flex-shrink: 0;
-        }
-        .contact-text h4 { font-size: 1.05rem; font-weight: 700; color: var(--red-dark); margin-bottom: 5px; }
-        .contact-text p { font-size: 0.95rem; color: #666; line-height: 1.6; }
-        .contact-text a { color: var(--red-primary); text-decoration: none; font-weight: 600; }
-        .contact-text a:hover { text-decoration: underline; }
-        .contact-map {
-            border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            height: 100%; min-height: 400px;
-        }
-        .map-ph {
-            width: 100%; height: 100%; background: linear-gradient(135deg, #E8E8E8, #D0D0D0);
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column; gap: 12px; color: #666;
-        }
-        .map-ph span:first-child { font-size: 4rem; }
-
-        /* ===== FOOTER ===== */
-        .footer { background: #0D0D0D; color: var(--white); padding: 60px 0 0; }
-        .footer-grid {
-            display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 30px 40px;
-        }
-        .footer-brand .flogo { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
-        .flogo-icon {
-            width: 50px; height: 50px; background: var(--red-primary);
-            border: 2px solid var(--gold-primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; color: var(--gold-bright); font-weight: 900;
-        }
-        .flogo-text h3 { color: var(--gold-bright); font-size: 1.1rem; }
-        .flogo-text p { color: var(--gold-primary); font-size: 0.7rem; letter-spacing: 2px; }
-        .footer-brand > p { color: #888; font-size: 0.85rem; line-height: 1.7; margin-bottom: 15px; }
-        .footer-social { display: flex; gap: 10px; }
-        .footer-social a {
-            width: 40px; height: 40px; background: rgba(255,255,255,0.08);
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            color: var(--white); text-decoration: none; font-size: 1rem; transition: all 0.3s;
-        }
-        .footer-social a:hover { background: var(--red-primary); transform: translateY(-3px); }
-        .footer-col h4 { color: var(--gold-bright); font-size: 1rem; margin-bottom: 18px; font-weight: 700; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 8px; }
-        .footer-col ul li a { color: #888; text-decoration: none; font-size: 0.85rem; transition: all 0.3s; }
-        .footer-col ul li a:hover { color: var(--gold-primary); padding-left: 5px; }
-        .fcontact { display: flex; gap: 10px; margin-bottom: 12px; color: #888; font-size: 0.85rem; }
-        .fcontact span:first-child { font-size: 1rem; flex-shrink: 0; }
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding: 20px 30px; text-align: center;
-        }
-        .footer-bottom p { color: #555; font-size: 0.8rem; }
-
-        /* ===== FLOATING ===== */
-        .float-contact {
-            position: fixed; bottom: 25px; right: 25px; z-index: 100;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .float-btn {
-            width: 54px; height: 54px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; color: var(--white); text-decoration: none;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
-        }
-        .float-btn:hover { transform: scale(1.1); }
-        .float-btn.phone { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
-        .float-btn.fb { background: linear-gradient(135deg, #1877F2, #0D47A1); }
-        .float-btn.top-btn {
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            opacity: 0; visibility: hidden; transition: all 0.3s;
-        }
-        .float-btn.top-btn.visible { opacity: 1; visibility: visible; }
-
-        /* ===== ANIMATIONS ===== */
-        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .fade-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s ease; }
-        .fade-left.visible { opacity: 1; transform: translateX(0); }
-        .fade-right { opacity: 0; transform: translateX(50px); transition: all 0.8s ease; }
-        .fade-right.visible { opacity: 1; transform: translateX(0); }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .hero-title { font-size: 3.5rem; }
-            .hero-title .gold { font-size: 2.5rem; }
-            .sets-grid { grid-template-columns: repeat(3, 1fr); }
-            .set-card.featured { transform: scale(1); }
-            .gallery-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 200px); }
-            .gallery-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
-            .gallery-item:nth-child(6) { display: none; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 80%; max-width: 350px;
-                height: 100vh; background: var(--red-dark); flex-direction: column;
-                align-items: stretch; padding: 80px 30px 30px;
-                transition: right 0.4s ease; box-shadow: -10px 0 30px rgba(0,0,0,0.3);
-            }
-            .nav-links.open { right: 0; }
-            .nav-links a { padding: 15px 20px; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .hero-title { font-size: 2.5rem; }
-            .hero-title .gold { font-size: 1.8rem; }
-            .hero-sub { font-size: 1rem; letter-spacing: 4px; }
-            .about-grid { grid-template-columns: 1fr; gap: 30px; }
-            .about-features { grid-template-columns: 1fr; }
-            .sets-grid { grid-template-columns: 1fr; }
-            .menu-grid { grid-template-columns: 1fr; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 160px); }
-            .gallery-item:nth-child(5), .gallery-item:nth-child(6) { display: none; }
-            .reviews-grid { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .contact-map { min-height: 300px; }
-            .catering h2 { font-size: 2rem; }
-            .section-title { font-size: 2rem; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .lantern:nth-child(3), .lantern:nth-child(4) { display: none; }
-            .corner-decor { display: none; }
-        }
-        @media (max-width: 480px) {
-            .hero-title { font-size: 2rem; }
-            .hero-title .gold { font-size: 1.5rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn { width: 100%; justify-content: center; }
-            .hero-logo-main { width: 110px; height: 110px; }
-            .menu-tabs { gap: 5px; }
-            .menu-tab { padding: 8px 14px; font-size: 0.8rem; }
-            .section-title { font-size: 1.7rem; }
+        @media(max-width:480px){
+            .hero-h{font-size:1.7rem;}.hero-h .go{font-size:1.2rem;}
+            .hero-btns{flex-direction:column;align-items:center;}.btn{width:100%;justify-content:center;}
+            .hero-lm{width:95px;height:95px;}
+            .mtabs{gap:3px;}.mt{padding:6px 11px;font-size:.74rem;}.stt{font-size:1.5rem;}
         }
     </style>
 </head>
 <body>
 
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-logo"><span>天光</span></div>
-        <p class="preloader-text">ร้านอาหารรุ่งฟ้า</p>
-    </div>
+<div class="preloader" id="preloader">
+    <div class="pre-logo"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="Logo"></div>
+    <p class="pre-text">ร้านอาหารรุ่งฟ้า</p>
+</div>
 
-    <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-brand">
-                <div class="nav-logo">天光</div>
-                <div class="nav-brand-text">
-                    <h1>รุ่งฟ้า</h1>
-                    <p>Rungfah Restaurant</p>
+<nav class="nav" id="navbar">
+    <div class="nav-c">
+        <a href="#home" class="nav-brand">
+            <div class="nav-logo"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="Logo"></div>
+            <div class="nav-bt"><h1>รุ่งฟ้า</h1><p>Rungfah Restaurant</p></div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">หน้าแรก</a></li>
+            <li><a href="#about">เกี่ยวกับเรา</a></li>
+            <li><a href="#sets">ชุดมงคล</a></li>
+            <li><a href="#menu">เมนู</a></li>
+            <li><a href="#gallery">แกลเลอรี่</a></li>
+            <li><a href="#contact">ติดต่อ</a></li>
+            <li><a href="tel:024372267" class="nav-cta">📞 โทรสั่ง</a></li>
+        </ul>
+        <div class="ham" id="ham"><span></span><span></span><span></span></div>
+    </div>
+</nav>
+<div class="mob-ov" id="mobOv"></div>
+
+<section class="hero" id="home">
+    <div class="hero-bg"><div class="hs active"></div><div class="hs"></div><div class="hs"></div></div>
+    <div class="hero-ov"></div>
+    <div class="hero-decor">
+        <div class="ltn"><div class="ls"></div><div class="lt"></div><div class="lb"></div><div class="lbo"></div><div class="lta"></div></div>
+        <div class="ltn"><div class="ls"></div><div class="lt"></div><div class="lb"></div><div class="lbo"></div><div class="lta"></div></div>
+        <div class="ltn"><div class="ls"></div><div class="lt"></div><div class="lb"></div><div class="lbo"></div><div class="lta"></div></div>
+        <div class="ltn"><div class="ls"></div><div class="lt"></div><div class="lb"></div><div class="lbo"></div><div class="lta"></div></div>
+    </div>
+    <div class="corner ctl"></div><div class="corner ctr"></div><div class="corner cbl"></div><div class="corner cbr"></div>
+    <div class="hero-ct">
+        <div class="hero-badge"><span>🏮</span><span>SINCE 1981 • Hainanese-Chinese Cuisine</span></div>
+        <div class="hero-lm"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="รุ่งฟ้า Logo"></div>
+        <h2 class="hero-h">ร้านอาหารรุ่งฟ้า<span class="go">Rungfah Restaurant</span></h2>
+        <p class="hero-sub">Authentic Hainanese-Chinese Cuisine</p>
+        <p class="hero-desc">สัมผัสรสชาติอาหารจีน-ไหหลำแท้ สืบทอดสูตรมากว่า 40 ปี<br>วัตถุดิบคุณภาพ ปรุงสดใหม่ทุกจาน จากใจถึงใจ</p>
+        <div class="hero-btns">
+            <a href="#menu" class="btn btn-g">📖 ดูเมนูอาหาร</a>
+            <a href="tel:024372267" class="btn btn-o">📞 02-437-2267</a>
+        </div>
+    </div>
+    <div class="hero-scroll"><a href="#about"><div class="sci"></div><span>เลื่อนลง</span></a></div>
+</section>
+
+<section class="about" id="about">
+    <div class="ctn">
+        <div class="about-g">
+            <div class="about-img fla">
+                <div class="about-yr"><span class="y">40+</span><span class="l">ปีแห่งรสชาติ</span></div>
+                <div class="logo-b"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="Logo"></div>
+                <span class="t1">ร้านอาหารรุ่งฟ้า</span>
+                <span class="t2">ถ.ลาดหญ้า • Ladya Road</span>
+            </div>
+            <div class="about-ct fra">
+                <div class="sb">🏮 เรื่องราวของเรา</div>
+                <h3>สืบทอดรสชาติ<br><span class="go">อาหารจีน-ไหหลำแท้</span></h3>
+                <p>ร้านอาหารรุ่งฟ้า เปิดให้บริการมาตั้งแต่ปี พ.ศ. 2524 เป็นร้านอาหารไทย-จีนไหหลำแท้ สูตรดั้งเดิมสืบทอดจากรุ่นสู่รุ่น ตั้งอยู่บนถนนลาดหญ้า ก่อนถึงลาดหญ้าซอย 9 ติดกับทางเข้าโรงแรมธนบุรีโฮเต็ล</p>
+                <p>ทุกเมนูปรุงสดใหม่ทุกจานด้วยวัตถุดิบคุณภาพ รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน สามารถติดต่อสอบถามได้</p>
+                <div class="hours-box">
+                    <h4>🕐 เวลาเปิด-ปิด</h4>
+                    <div class="hours-row"><span class="day">จันทร์ - เสาร์ (Mon-Sat)</span><span class="time">11:00-14:00 &amp; 17:00-21:00</span></div>
+                    <div class="hours-row"><span class="day">วันอาทิตย์ (Sunday)</span><span class="time">11:00-21:00</span></div>
+                    <p class="hours-closed">⚠️ ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน (Closed every 2nd &amp; 4th Monday)</p>
                 </div>
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="active">หน้าแรก</a></li>
+                <div class="about-f">
+                    <div class="af"><div class="af-i">🍲</div><span>สูตรดั้งเดิมไหหลำ</span></div>
+                    <div class="af"><div class="af-i">🥬</div><span>วัตถุดิบสดใหม่</span></div>
+                    <div class="af"><div class="af-i">👨‍🍳</div><span>เชฟผู้ชำนาญ</span></div>
+                    <div class="af"><div class="af-i">🙏</div><span>รับทำอาหารไหว้</span></div>
+                </div>
+                <a href="#menu" class="btn btn-g">📖 ดูเมนูทั้งหมด</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sets" id="sets">
+    <div class="ctn">
+        <div class="sh fi">
+            <div class="sb">🏮 อาหารชุดมงคล • Auspicious Sets</div>
+            <h2 class="stt">ชุด<span class="hl">มงคล</span></h2>
+            <div class="sli"></div>
+            <p class="sde">อาหารชุดมงคลสำหรับไหว้เจ้า วันสำคัญ และเทศกาลจีน จัดเซ็ตพร้อมเสิร์ฟ</p>
+        </div>
+        <div class="sets-g">
+            <div class="sc fi"><span class="sc-i">🏮</span><div class="sc-n">ชุดมงคล 5</div><div class="sc-en">Auspicious Set 5</div><div class="sc-d">อาหาร 5 อย่าง (5 Dishes)</div><div class="sc-dv"></div><div class="sc-p">1,490 <small>บาท</small></div></div>
+            <div class="sc feat fi" style="transition-delay:.1s;"><div class="rib">แนะนำ</div><span class="sc-i">⭐</span><div class="sc-n">ชุดมงคล 8</div><div class="sc-en">Auspicious Set 8</div><div class="sc-d">อาหาร 8 อย่าง (8 Dishes)</div><div class="sc-dv"></div><div class="sc-p">2,190 <small>บาท</small></div></div>
+            <div class="sc fi" style="transition-delay:.2s;"><span class="sc-i">👑</span><div class="sc-n">ชุดมงคล 10</div><div class="sc-en">Auspicious Set 10</div><div class="sc-d">อาหาร 10 อย่าง (10 Dishes)</div><div class="sc-dv"></div><div class="sc-p">3,190 <small>บาท</small></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="menu" id="menu">
+    <div class="ctn">
+        <div class="sh fi">
+            <div class="sb">📖 เมนูอาหาร • Our Menu</div>
+            <h2 class="stt">เมนู<span class="hl">ร้านรุ่งฟ้า</span></h2>
+            <div class="sli"></div>
+            <p class="sde">อาหารจีน-ไหหลำแท้ ปรุงสดใหม่ทุกจาน (ราคา: เล็ก/ใหญ่ • Small/Large)</p>
+        </div>
+        <div class="mtabs">
+            <button class="mt active" onclick="showM('all',this)">ทั้งหมด</button>
+            <button class="mt" onclick="showM('sp',this)">พิเศษ</button>
+            <button class="mt" onclick="showM('yam',this)">ยำ/ซุป</button>
+            <button class="mt" onclick="showM('fish',this)">ปลา</button>
+            <button class="mt" onclick="showM('stir',this)">ผัด</button>
+            <button class="mt" onclick="showM('fried',this)">ทอด/เผ็ด</button>
+            <button class="mt" onclick="showM('salad',this)">สลัด</button>
+            <button class="mt" onclick="showM('des',this)">หวาน/ดื่ม</button>
+        </div>
+
+        <div class="ms active" data-m="sp">
+            <div class="mst">เมนูพิเศษ (Special Dishes)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">A1</div><div class="mii"><h4>แพะตุ๋นยาจีน</h4><p>Stewed Goat in Chinese Herbs</p></div><div class="mip">300/400.-</div></div>
+                <div class="mi"><div class="mic">A2</div><div class="mii"><h4>ซี่โครงหมูอบถั่วลันเตา</h4><p>Braised Pork Ribs with Peas</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">A3</div><div class="mii"><h4>ขาห่านอบหมี่</h4><p>Braised Goose Webs with Egg Noodles</p></div><div class="mip">400/500.-</div></div>
+                <div class="mi"><div class="mic">A4</div><div class="mii"><h4>ไก่ไทยต้ม</h4><p>Boiled Thai Chicken</p></div><div class="mip">160/270.-</div></div>
+                <div class="mi"><div class="mic">A5</div><div class="mii"><h4>ข้าวผัดปู</h4><p>Crab Fried Rice</p></div><div class="mip">260/370.-</div></div>
+                <div class="mi"><div class="mic">A6</div><div class="mii"><h4>เอ็นหมูน้ำแดง</h4><p>Braised Pork Tendon in Red Gravy</p></div><div class="mip">250/350.-</div></div>
+                <div class="mi"><div class="mic">A7</div><div class="mii"><h4>กระเพาะปลาน้ำแดง</h4><p>Braised Fish Maw in Red Gravy</p></div><div class="mip">250/350.-</div></div>
+                <div class="mi"><div class="mic">A8</div><div class="mii"><h4>กุ้งอบวุ้นเส้น</h4><p>Casseroled Shrimps with Glass Noodles</p></div><div class="mip">250/350.-</div></div>
+                <div class="mi"><div class="mic">A9</div><div class="mii"><h4>ขาห่านน้ำแดง</h4><p>Braised Goose Webs in Red Gravy</p></div><div class="mip">400/500.-</div></div>
+            </div>
+        </div>
+
+        <div class="ms active" data-m="yam">
+            <div class="mst">ยำ (Thai Spicy Salads)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">B1</div><div class="mii"><h4>ยำสามกรอบ</h4><p>Spicy Crispy Three Kinds Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">B2</div><div class="mii"><h4>ยำหอยนางรม</h4><p>Spicy Oyster Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">B3</div><div class="mii"><h4>ยำวุ้นเส้น</h4><p>Spicy Glass Noodle Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">B4</div><div class="mii"><h4>ยำทะเล</h4><p>Spicy Seafood Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">B5</div><div class="mii"><h4>ยำเนื้อ</h4><p>Spicy Beef Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">B6</div><div class="mii"><h4>กุ้งพล่า</h4><p>Spicy Shrimp Salad with Herbs</p></div><div class="mip">160/220.-</div></div>
+            </div>
+            <div class="mst" style="margin-top:18px;">ต้มยำ / แกงจืด (Soups)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">C1</div><div class="mii"><h4>ต้มยำกุ้ง</h4><p>Tom Yum Goong / Spicy Shrimp Soup</p></div><div class="mip">160/260.-</div></div>
+                <div class="mi"><div class="mic">C2</div><div class="mii"><h4>ต้มยำรวมมิตร</h4><p>Spicy Mixed Seafood Soup</p></div><div class="mip">160/260.-</div></div>
+                <div class="mi"><div class="mic">C3</div><div class="mii"><h4>โป๊ะแตก</h4><p>Spicy Seafood Clear Soup</p></div><div class="mip">160/260.-</div></div>
+                <div class="mi"><div class="mic">C4</div><div class="mii"><h4>หัวปลาต้มเผือก/เต้าหู้</h4><p>Fish Head Soup with Taro or Tofu</p></div><div class="mip">260.-</div></div>
+                <div class="mi"><div class="mic">D1</div><div class="mii"><h4>แกงจืดสาหร่ายทะเล</h4><p>Seaweed Soup</p></div><div class="mip">160/260.-</div></div>
+            </div>
+        </div>
+
+        <div class="ms active" data-m="fish">
+            <div class="mst">เมนูปลา (Fish)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">E1</div><div class="mii"><h4>เนื้อปลากะพงน้ำแดง</h4><p>Deep-fried Sea Bass in Red Gravy</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">E2</div><div class="mii"><h4>เนื้อปลากะพงราดพริก</h4><p>Deep-fried Sea Bass with Chili Sauce</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">E3</div><div class="mii"><h4>เนื้อปลากะพงสามรส</h4><p>Deep-fried Sea Bass with Three-Flavored Sauce</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">E4</div><div class="mii"><h4>เนื้อปลากะพงเปรี้ยวหวาน</h4><p>Deep-fried Sea Bass with Sweet &amp; Sour Sauce</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">E5</div><div class="mii"><h4>ปลากะพงทอดน้ำปลา</h4><p>Deep-fried Sea Bass with Fish Sauce</p></div><div class="mip">ตามขนาด</div></div>
+                <div class="mi"><div class="mic">E6/7</div><div class="mii"><h4>ปลาเก๋าราดพริก</h4><p>Deep-fried Grouper with Chili Sauce</p></div><div class="mip">ตามขนาด</div></div>
+            </div>
+        </div>
+
+        <div class="ms active" data-m="stir">
+            <div class="mst">เมนูผัด (Stir-fried)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">F1</div><div class="mii"><h4>โหงวก๊วย</h4><p>Stir-fried Five Kinds of Nuts</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">F2</div><div class="mii"><h4>ลูกชิ้นกุ้งผัดผักโสภณ</h4><p>Stir-fried Shrimp Balls with Chinese Mustard Green</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">F3</div><div class="mii"><h4>กระเพาะปลาผัดแห้งปู</h4><p>Stir-fried Fish Maw with Crab Meat</p></div><div class="mip">160/270.-</div></div>
+                <div class="mi"><div class="mic">F4</div><div class="mii"><h4>เนื้อปลากะพงผัดขึ้นฉ่าย</h4><p>Stir-fried Sea Bass with Celery</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">F5</div><div class="mii"><h4>เนื้อผัดน้ำมันหอย</h4><p>Stir-fried Beef with Oyster Sauce</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">F6</div><div class="mii"><h4>เต้าหู้ทรงเครื่อง</h4><p>Braised Tofu with Minced Pork and Shrimps</p></div><div class="mip">250/350.-</div></div>
+                <div class="mi"><div class="mic">F7</div><div class="mii"><h4>ผัดโป๊ยเซียน</h4><p>Stir-fried Eight Immortals</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">F8</div><div class="mii"><h4>ผัดจับฉ่ายไหหลำ</h4><p>Stir-fried Hainanese Mixed Vegetables</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">F9</div><div class="mii"><h4>ออส่วน</h4><p>Sautéed Oysters with Flour and Egg</p></div><div class="mip">160/220.-</div></div>
+            </div>
+        </div>
+
+        <div class="ms active" data-m="fried">
+            <div class="mst">รายการทอด (Deep-fried)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">G1</div><div class="mii"><h4>ไส้หมูทอดกรอบ</h4><p>Deep-fried Crispy Pork Intestines</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">G2</div><div class="mii"><h4>กุ้งชุบแป้งทอด</h4><p>Deep-fried Battered Shrimps</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">G3</div><div class="mii"><h4>ปลาหมึกชุบแป้งทอด</h4><p>Deep-fried Battered Squid</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">G4</div><div class="mii"><h4>ทอดมันกุ้ง</h4><p>Deep-fried Shrimp Cakes</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">G5</div><div class="mii"><h4>เม็ดมะม่วงหิมพานต์ทอด</h4><p>Fried Cashew Nuts</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">G6</div><div class="mii"><h4>แฮกิ้นทอด (ชิ้น)</h4><p>Deep-fried Prawn Rolls Sliced</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">G7</div><div class="mii"><h4>แฮ้กิ๊นเส้น</h4><p>Deep-fried Prawn Rolls Full Length</p></div><div class="mip">320.-</div></div>
+            </div>
+            <div class="mst" style="margin-top:18px;">ผัดเผ็ด (Stir-fried with Red Curry)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">H1</div><div class="mii"><h4>เอ็นหมูผัดเผ็ด</h4><p>Stir-fried Pork Tendon with Red Curry</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">H2</div><div class="mii"><h4>ปลาดุกผัดเผ็ด</h4><p>Stir-fried Catfish with Red Curry</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">H3</div><div class="mii"><h4>รวมมิตรผัดเผ็ด</h4><p>Stir-fried Mixed Seafood with Red Curry</p></div><div class="mip">160/270.-</div></div>
+                <div class="mi"><div class="mic">H4</div><div class="mii"><h4>ไข่เยี่ยวม้ากะเพรากรอบ</h4><p>Stir-fried Pickled Eggs with Fried Basil</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">H5</div><div class="mii"><h4>เนื้อปูผัดผงกะหรี่</h4><p>Stir-fried Crab with Curry Powder</p></div><div class="mip">300/450.-</div></div>
+            </div>
+        </div>
+
+        <div class="ms active" data-m="salad">
+            <div class="mst">เมนูสลัด (Salad)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">I1</div><div class="mii"><h4>สลัดซี่โครงหมู</h4><p>Pork Chop Fried Salad</p></div><div class="mip">300.-</div></div>
+                <div class="mi"><div class="mic">I2</div><div class="mii"><h4>สลัดปู</h4><p>Crab Salad</p></div><div class="mip">300/450.-</div></div>
+                <div class="mi"><div class="mic">I3</div><div class="mii"><h4>สลัดกุ้งทอด</h4><p>Fried Prawns Salad</p></div><div class="mip">160/270.-</div></div>
+                <div class="mi"><div class="mic">I4</div><div class="mii"><h4>สลัดปลาทอด</h4><p>Fried Sea Bass Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">I5</div><div class="mii"><h4>สลัดเนื้อสัน</h4><p>Beef Fried Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mic">I6</div><div class="mii"><h4>สลัดหมู</h4><p>Pork Salad</p></div><div class="mip">160/220.-</div></div>
+            </div>
+        </div>
+
+        <div class="ms active" data-m="des">
+            <div class="mst">ของหวาน (Dessert)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">J1</div><div class="mii"><h4>ไอศกรีมเจลาโต้</h4><p>Gelato Ice Cream</p></div><div class="mip">49.-</div></div>
+                <div class="mi"><div class="mic">J2</div><div class="mii"><h4>ลอดช่องวัดเจษ</h4><p>Lod Chong Wat Jed</p></div><div class="mip">49.-</div></div>
+                <div class="mi"><div class="mic">J3</div><div class="mii"><h4>แปะก๊วยนมสด</h4><p>Ginkgo Nuts with Fresh Milk</p></div><div class="mip">49.-</div></div>
+            </div>
+            <div class="mst" style="margin-top:18px;">เครื่องดื่ม (Beverages)</div>
+            <div class="mg">
+                <div class="mi"><div class="mic">K1</div><div class="mii"><h4>เบียร์สิงห์</h4><p>Singha Beer</p></div><div class="mip">85.-</div></div>
+                <div class="mi"><div class="mic">K2</div><div class="mii"><h4>เบียร์ไฮเนเก้น</h4><p>Heineken Beer</p></div><div class="mip">100.-</div></div>
+                <div class="mi"><div class="mic">K3</div><div class="mii"><h4>น้ำเก๊กฮวย</h4><p>Chrysanthemum Juice</p></div><div class="mip">40/60.-</div></div>
+                <div class="mi"><div class="mic">K4</div><div class="mii"><h4>ชาจีนเย็น</h4><p>Iced Chinese Tea</p></div><div class="mip">25.-</div></div>
+                <div class="mi"><div class="mic">K5</div><div class="mii"><h4>น้ำอัดลม</h4><p>Soft Drink</p></div><div class="mip">15.-</div></div>
+                <div class="mi"><div class="mic">K6</div><div class="mii"><h4>น้ำเปล่า</h4><p>Drinking Water</p></div><div class="mip">15.-</div></div>
+                <div class="mi"><div class="mic">K7</div><div class="mii"><h4>น้ำแข็ง (ถัง)</h4><p>Ice Bucket</p></div><div class="mip">15.-</div></div>
+            </div>
+        </div>
+
+        <div class="mcta fi">
+            <h3>📋 ดูเมนูฉบับเต็มพร้อมรูปภาพ</h3>
+            <p>กดปุ่มด้านล่างเพื่อดูเมนูเต็มรูปแบบ หรือโทรสั่งอาหารได้เลย</p>
+            <div class="mcta-b">
+                <a href="https://drive.google.com/file/d/1zdg1qBkPIiKiA9-XN5ADUvROOU7LjuXt/view?usp=sharing" target="_blank" class="btn btn-g">📋 ดูเมนูฉบับเต็ม (PDF)</a>
+                <a href="tel:024372267" class="btn btn-o" style="border-color:var(--gb);color:var(--gb);">📞 โทรสั่ง 02-437-2267</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery" id="gallery">
+    <div class="ctn">
+        <div class="sh fi">
+            <div class="sb">📸 แกลเลอรี่ • Gallery</div>
+            <h2 class="stt">บรรยากาศ<span class="hl">ร้านรุ่งฟ้า</span></h2>
+            <div class="sli"></div>
+        </div>
+        <div class="gal-g">
+            <div class="gi fi"><div class="gp g1"><span>🏮</span><span class="lbl">บรรยากาศร้าน</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp g2"><span>🍗</span><span class="lbl">ไก่ไทยต้ม</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp g3"><span>🦢</span><span class="lbl">ขาห่านอบหมี่</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp g4"><span>🐟</span><span class="lbl">ปลากะพง</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp g5"><span>🦐</span><span class="lbl">กุ้งอบวุ้นเส้น</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp g6"><span>🍚</span><span class="lbl">ข้าวผัดปู</span></div><div class="gov"><span>🔍</span></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="reviews" id="reviews">
+    <div class="ctn">
+        <div class="sh fi">
+            <div class="sb">💬 รีวิวลูกค้า</div>
+            <h2 class="stt">เสียงจาก<span class="hl">ลูกค้า</span></h2>
+            <div class="sli"></div>
+        </div>
+        <div class="rev-g">
+            <div class="rc fi">
+                <div class="rs"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
+                <p class="rte">"ขาห่านอบหมี่อร่อยมากค่ะ เนื้อนุ่ม หมี่หอม ข้าวผัดปูก็เด็ด ทานมาตั้งแต่เด็กจนโต สูตรเดิมไม่เคยเปลี่ยน!"</p>
+                <div class="ra"><div class="rav r1">ส</div><div class="rai"><h5>คุณสมศรี</h5><p>ลูกค้าประจำ 10+ ปี</p></div></div>
+            </div>
+            <div class="rc fi" style="transition-delay:.1s;">
+                <div class="rs"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
+                <p class="rte">"แพะตุ๋นยาจีนดีที่สุด เนื้อนุ่ม น้ำซุปหอม กระเพาะปลาน้ำแดงก็เยี่ยม พนักงานบริการดี คุ้มค่ามากครับ"</p>
+                <div class="ra"><div class="rav r2">ว</div><div class="rai"><h5>คุณวิชัย</h5><p>ลูกค้าจากปากต่อปาก</p></div></div>
+            </div>
+            <div class="rc fi" style="transition-delay:.2s;">
+                <div class="rs"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
+                <p class="rte">"สั่งชุดมงคล 8 ไหว้ตรุษจีน อร่อยครบ จัดเซ็ตสวยงาม สะดวกมาก ปีหน้าจะสั่งอีกแน่นอนค่ะ!"</p>
+                <div class="ra"><div class="rav r3">น</div><div class="rai"><h5>คุณนภา</h5><p>สั่งชุดมงคลประจำ</p></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="catering" id="catering">
+    <div class="ctn">
+        <div class="cat-ct fi">
+            <div class="sb" style="background:rgba(212,165,40,.15);border-color:rgba(212,165,40,.3);color:var(--gb);">🙏 บริการพิเศษ • Special Service</div>
+            <h2>รับทำ<span class="go">อาหารไหว้</span><br>ช่วงเทศกาลจีน</h2>
+            <p>รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน และเทศกาลสำคัญ ด้วยสูตรดั้งเดิม จัดเซ็ตพร้อมเสิร์ฟ</p>
+            <p style="font-size:.9rem;opacity:.7;">Auspicious food for Chinese New Year &amp; all major Chinese festivals</p>
+            <div class="cat-f">
+                <div class="cf"><div class="cf-i">🏮</div><span>ชุดมงคล 5<br>1,490฿</span></div>
+                <div class="cf"><div class="cf-i">⭐</div><span>ชุดมงคล 8<br>2,190฿</span></div>
+                <div class="cf"><div class="cf-i">👑</div><span>ชุดมงคล 10<br>3,190฿</span></div>
+                <div class="cf"><div class="cf-i">📦</div><span>จัดเซ็ตพร้อมส่ง</span></div>
+            </div>
+            <p style="font-size:.88rem;">สนใจสั่งจอง กรุณาติดต่อล่วงหน้า</p>
+            <div class="cat-b">
+                <a href="tel:024372267" class="btn btn-g">📞 02-437-2267</a>
+                <a href="tel:0816972739" class="btn btn-g">📞 081-697-2739</a>
+                <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="btn btn-o">💬 Facebook</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <div class="ctn">
+        <div class="sh fi">
+            <div class="sb">📍 ติดต่อเรา • Contact Us</div>
+            <h2 class="stt">มา<span class="hl">ทานกัน</span>นะ</h2>
+            <div class="sli"></div>
+        </div>
+        <div class="con-g">
+            <div class="con-items fla">
+                <div class="ci">
+                    <div class="ci-ic">📍</div>
+                    <div class="ci-t">
+                        <h4>ที่ตั้งร้าน (Location)</h4>
+                        <p>ถ.ลาดหญ้า ก่อนถึงลาดหญ้าซอย 9<br>ติดกับทางเข้าโรงแรมธนบุรีโฮเต็ล<br><span style="font-size:.8rem;color:#999;">Ladya Road, before Soi 9, next to Thonburi Hotel</span></p>
+                    </div>
+                </div>
+                <div class="ci">
+                    <div class="ci-ic">🕐</div>
+                    <div class="ci-t">
+                        <h4>เวลาเปิด-ปิด (Hours)</h4>
+                        <p><strong>จันทร์-เสาร์ (Mon-Sat):</strong> 11:00-14:00 &amp; 17:00-21:00<br><strong>วันอาทิตย์ (Sunday):</strong> 11:00-21:00<br><span style="color:var(--r);font-weight:600;">ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน</span><br><span style="font-size:.8rem;color:#999;">Closed every 2nd &amp; 4th Monday</span></p>
+                    </div>
+                </div>
+                <div class="ci">
+                    <div class="ci-ic">📞</div>
+                    <div class="ci-t">
+                        <h4>โทรศัพท์ (Phone)</h4>
+                        <p><a href="tel:024372267">02-437-2267</a><br><a href="tel:0816972739">081-697-2739</a></p>
+                    </div>
+                </div>
+                <div class="ci">
+                    <div class="ci-ic">📱</div>
+                    <div class="ci-t">
+                        <h4>Facebook</h4>
+                        <p><a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank">รุ่งฟ้า Rungfah Restaurant</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="con-map fra">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d968.9!2d100.4943!3d13.7268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e298d21f1ec24d%3A0x2b6db82f244b950f!2z4Lij4LmJ4Liy4LiZ4Lit4Liy4Lir4Liy4Lij4Lij4Li44LmI4LiH4Lif4LmJ4Liy!5e0!3m2!1sth!2sth!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="f-g">
+        <div class="f-brand">
+            <div class="fl"><div class="fli"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="Logo"></div><div class="flt"><h3>ร้านอาหารรุ่งฟ้า</h3><p>Rungfah Restaurant</p></div></div>
+            <p>ร้านอาหารไทย-จีนไหหลำแท้ เปิดให้บริการมากว่า 40 ปี สูตรดั้งเดิมสืบทอดจากรุ่นสู่รุ่น ตั้งอยู่บนถนนลาดหญ้า</p>
+            <div class="f-soc">
+                <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank">📘</a>
+                <a href="tel:024372267">📞</a>
+            </div>
+        </div>
+        <div class="fc">
+            <h4>เมนูเว็บ</h4>
+            <ul>
+                <li><a href="#home">หน้าแรก</a></li>
                 <li><a href="#about">เกี่ยวกับเรา</a></li>
                 <li><a href="#sets">ชุดมงคล</a></li>
                 <li><a href="#menu">เมนูอาหาร</a></li>
                 <li><a href="#gallery">แกลเลอรี่</a></li>
-                <li><a href="#contact">ติดต่อ</a></li>
-                <li><a href="tel:0816972739" class="nav-cta">📞 โทรสั่ง</a></li>
+                <li><a href="#contact">ติดต่อเรา</a></li>
             </ul>
-            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div>
-    </nav>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-
-    <!-- Hero -->
-    <section class="hero" id="home">
-        <div class="hero-bg">
-            <div class="hero-bg-slide active"></div>
-            <div class="hero-bg-slide"></div>
-            <div class="hero-bg-slide"></div>
+        <div class="fc">
+            <h4>บริการ</h4>
+            <ul>
+                <li><a href="#menu">ทานที่ร้าน</a></li>
+                <li><a href="tel:024372267">สั่งกลับบ้าน</a></li>
+                <li><a href="#catering">อาหารไหว้</a></li>
+                <li><a href="#sets">ชุดมงคล</a></li>
+                <li><a href="https://drive.google.com/file/d/1zdg1qBkPIiKiA9-XN5ADUvROOU7LjuXt/view?usp=sharing" target="_blank">เมนูฉบับเต็ม (PDF)</a></li>
+            </ul>
         </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-decor">
-            <div class="lantern"><div class="lantern-string"></div><div class="lantern-top"></div><div class="lantern-body"></div><div class="lantern-bottom"></div><div class="lantern-tassel"></div></div>
-            <div class="lantern"><div class="lantern-string"></div><div class="lantern-top"></div><div class="lantern-body"></div><div class="lantern-bottom"></div><div class="lantern-tassel"></div></div>
-            <div class="lantern"><div class="lantern-string"></div><div class="lantern-top"></div><div class="lantern-body"></div><div class="lantern-bottom"></div><div class="lantern-tassel"></div></div>
-            <div class="lantern"><div class="lantern-string"></div><div class="lantern-top"></div><div class="lantern-body"></div><div class="lantern-bottom"></div><div class="lantern-tassel"></div></div>
+        <div class="fc">
+            <h4>ข้อมูลร้าน</h4>
+            <div class="fci"><span>📍</span><span>ถ.ลาดหญ้า ก่อนถึงซอย 9<br>ติดโรงแรมธนบุรีโฮเต็ล</span></div>
+            <div class="fci"><span>🕐</span><span>จ-ส: 11:00-14:00, 17:00-21:00<br>อา: 11:00-21:00</span></div>
+            <div class="fci"><span>📞</span><span>02-437-2267<br>081-697-2739</span></div>
+            <div class="fci"><span>📘</span><span>รุ่งฟ้า Rungfah Restaurant</span></div>
         </div>
-        <div class="corner-decor tl"></div><div class="corner-decor tr"></div>
-        <div class="corner-decor bl"></div><div class="corner-decor br"></div>
-
-        <div class="hero-content">
-            <div class="hero-badge"><span>🏮</span><span>SINCE 1981 • อาหารจีน-ไหหลำแท้</span></div>
-            <div class="hero-logo-main"><span class="cn">天光</span><span class="th">ร้านอาหาร รุ่งฟ้า</span></div>
-            <h2 class="hero-title">ร้านอาหารรุ่งฟ้า<span class="gold">Rungfah Restaurant</span></h2>
-            <p class="hero-sub">Authentic Hainanese-Chinese Cuisine</p>
-            <p class="hero-desc">สัมผัสรสชาติอาหารจีน-ไหหลำแท้ สืบทอดสูตรมากว่า 40 ปี<br>วัตถุดิบคุณภาพ ปรุงสดใหม่ทุกจาน จากใจถึงใจ</p>
-            <div class="hero-buttons">
-                <a href="#menu" class="btn btn-gold">📖 ดูเมนูอาหาร</a>
-                <a href="tel:0816972739" class="btn btn-outline">📞 081-697-2739</a>
-            </div>
-        </div>
-        <div class="hero-scroll"><a href="#about"><div class="scroll-icon"></div><span>เลื่อนลง</span></a></div>
-    </section>
-
-    <!-- About -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-img fade-left">
-                    <div class="about-year"><span class="yr">40+</span><span class="lb">ปีแห่งรสชาติ</span></div>
-                    <span class="icon">🏮</span>
-                    <span class="text1">ร้านอาหารรุ่งฟ้า</span>
-                    <span class="text2">ถนนลาดหญ้า ที่จอดสะดวก</span>
-                </div>
-                <div class="about-content fade-right">
-                    <div class="section-badge">🏮 เรื่องราวของเรา</div>
-                    <h3>สืบทอดรสชาติ<br><span class="gold">อาหารจีน-ไหหลำแท้</span></h3>
-                    <p>ร้านอาหารรุ่งฟ้า เปิดให้บริการมาตั้งแต่ปี พ.ศ. 2524 เป็นร้านอาหารไทย-จีนไหหลำแท้ ที่ยึดมั่นในสูตรดั้งเดิมสืบทอดจากรุ่นสู่รุ่น ตั้งอยู่บนถนนลาดหญ้า มีที่จอดรถสะดวก</p>
-                    <p>ทุกเมนูปรุงสดใหม่ทุกจานด้วยวัตถุดิบคุณภาพ รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน สามารถติดต่อสอบถามได้</p>
-                    <div class="about-features">
-                        <div class="about-feat"><div class="about-feat-icon">🍲</div><span>สูตรดั้งเดิมไหหลำ</span></div>
-                        <div class="about-feat"><div class="about-feat-icon">🥬</div><span>วัตถุดิบสดใหม่</span></div>
-                        <div class="about-feat"><div class="about-feat-icon">👨‍🍳</div><span>เชฟผู้ชำนาญ</span></div>
-                        <div class="about-feat"><div class="about-feat-icon">🙏</div><span>รับทำอาหารไหว้</span></div>
-                    </div>
-                    <a href="#menu" class="btn btn-gold">📖 ดูเมนูทั้งหมด</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Auspicious Sets -->
-    <section class="sets" id="sets">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-badge">🏮 อาหารชุดมงคล</div>
-                <h2 class="section-title">ชุด<span class="hl">มงคล</span></h2>
-                <div class="section-line"></div>
-                <p class="section-desc">อาหารชุดมงคลสำหรับไหว้เจ้า วันสำคัญ และเทศกาลจีน จัดเซ็ตพร้อมเสิร์ฟ</p>
-            </div>
-            <div class="sets-grid">
-                <div class="set-card fade-in">
-                    <span class="set-icon">🏮</span>
-                    <div class="set-name">ชุดมงคล 5</div>
-                    <div class="set-detail">อาหาร 5 อย่าง</div>
-                    <div class="set-divider"></div>
-                    <div class="set-price">1,490 <small>บาท</small></div>
-                    <div class="set-note" style="margin-top:10px;">เหมาะสำหรับไหว้เจ้าทั่วไป</div>
-                </div>
-                <div class="set-card featured fade-in" style="transition-delay:0.1s;">
-                    <div class="ribbon">แนะนำ</div>
-                    <span class="set-icon">⭐</span>
-                    <div class="set-name">ชุดมงคล 8</div>
-                    <div class="set-detail">อาหาร 8 อย่าง</div>
-                    <div class="set-divider"></div>
-                    <div class="set-price">2,190 <small>บาท</small></div>
-                    <div class="set-note" style="margin-top:10px;">ยอดนิยม! ครบเครื่องมงคล</div>
-                </div>
-                <div class="set-card fade-in" style="transition-delay:0.2s;">
-                    <span class="set-icon">👑</span>
-                    <div class="set-name">ชุดมงคล 10</div>
-                    <div class="set-detail">อาหาร 10 อย่าง</div>
-                    <div class="set-divider"></div>
-                    <div class="set-price">3,190 <small>บาท</small></div>
-                    <div class="set-note" style="margin-top:10px;">ชุดใหญ่ครบสมบูรณ์</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Full Menu -->
-    <section class="menu" id="menu">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-badge">📖 เมนูอาหาร</div>
-                <h2 class="section-title">เมนู<span class="hl">ร้านรุ่งฟ้า</span></h2>
-                <div class="section-line"></div>
-                <p class="section-desc">อาหารจีน-ไหหลำแท้ หลากหลายเมนู ปรุงสดใหม่ทุกจาน (ราคา: เล็ก / ใหญ่)</p>
-            </div>
-
-            <div class="menu-tabs">
-                <button class="menu-tab active" onclick="showMenu('all',this)">🏮 ทั้งหมด</button>
-                <button class="menu-tab" onclick="showMenu('special',this)">⭐ พิเศษ</button>
-                <button class="menu-tab" onclick="showMenu('yam',this)">🥗 ยำ/ต้มยำ</button>
-                <button class="menu-tab" onclick="showMenu('fish',this)">🐟 ปลา</button>
-                <button class="menu-tab" onclick="showMenu('stir',this)">🔥 ผัด</button>
-                <button class="menu-tab" onclick="showMenu('fried',this)">🍗 ทอด/ผัดเผ็ด</button>
-                <button class="menu-tab" onclick="showMenu('salad',this)">🥬 สลัด</button>
-                <button class="menu-tab" onclick="showMenu('dessert',this)">🍨 ของหวาน/ดื่ม</button>
-            </div>
-
-            <!-- เมนูพิเศษ -->
-            <div class="menu-section active" data-menu="special">
-                <div class="menu-section-title">⭐ เมนูพิเศษ (Special Dishes)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">A1</div><div class="menu-item-info"><h4>แพะตุ๋นยาจีน</h4><p>Chinese Herbal Stewed Goat</p></div><div class="menu-item-price">300/400.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A2</div><div class="menu-item-info"><h4>ซี่โครงหมูอบถั่วลันเตา</h4><p>Baked Pork Ribs with Peas</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A3</div><div class="menu-item-info"><h4>ขาห่านอบหมี่</h4><p>Baked Goose Leg with Noodle</p></div><div class="menu-item-price">400/500.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A4</div><div class="menu-item-info"><h4>ไก่ไทยต้ม</h4><p>Boiled Thai Chicken</p></div><div class="menu-item-price">160/270.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A5</div><div class="menu-item-info"><h4>ข้าวผัดปู</h4><p>Crab Fried Rice</p></div><div class="menu-item-price">260/370.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A6</div><div class="menu-item-info"><h4>เอ็นหมูน้ำแดง</h4><p>Pork Tendon in Red Sauce</p></div><div class="menu-item-price">250/350.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A7</div><div class="menu-item-info"><h4>กระเพาะปลาน้ำแดง</h4><p>Fish Maw in Red Sauce</p></div><div class="menu-item-price">250/350.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A8</div><div class="menu-item-info"><h4>กุ้งอบวุ้นเส้น</h4><p>Baked Shrimp with Glass Noodle</p></div><div class="menu-item-price">250/350.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">A9</div><div class="menu-item-info"><h4>ขาห่านน้ำแดง</h4><p>Goose Leg in Red Sauce</p></div><div class="menu-item-price">400/500.-</div></div>
-                </div>
-            </div>
-
-            <!-- ยำ/ต้มยำ -->
-            <div class="menu-section active" data-menu="yam">
-                <div class="menu-section-title">🥗 ยำ (Spicy Salad)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">B1</div><div class="menu-item-info"><h4>ยำสามกรอบ</h4><p>Crispy Three-kind Spicy Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">B2</div><div class="menu-item-info"><h4>ยำหอยนางรม</h4><p>Spicy Oyster Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">B3</div><div class="menu-item-info"><h4>ยำวุ้นเส้น</h4><p>Glass Noodle Spicy Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">B4</div><div class="menu-item-info"><h4>ยำทะเล</h4><p>Seafood Spicy Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">B5</div><div class="menu-item-info"><h4>ยำเนื้อ</h4><p>Spicy Beef Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">B6</div><div class="menu-item-info"><h4>กุ้งพล่า</h4><p>Spicy Shrimp Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                </div>
-
-                <div class="menu-section-title" style="margin-top:25px;">🍲 ต้มยำ / แกงจืด (Soup)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">C1</div><div class="menu-item-info"><h4>ต้มยำกุ้ง</h4><p>Tom Yum Kung</p></div><div class="menu-item-price">160/260.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">C2</div><div class="menu-item-info"><h4>ต้มยำรวมมิตร</h4><p>Tom Yum Mixed</p></div><div class="menu-item-price">160/260.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">C3</div><div class="menu-item-info"><h4>โป๊ะแตก</h4><p>Spicy Seafood Soup</p></div><div class="menu-item-price">160/260.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">C4</div><div class="menu-item-info"><h4>หัวปลาต้มเผือก/เต้าหู้</h4><p>Fish Head Soup with Taro/Tofu</p></div><div class="menu-item-price">260.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">D1</div><div class="menu-item-info"><h4>แกงจืดสาหร่ายทะเล</h4><p>Seaweed Clear Soup</p></div><div class="menu-item-price">160/260.-</div></div>
-                </div>
-            </div>
-
-            <!-- ปลา -->
-            <div class="menu-section active" data-menu="fish">
-                <div class="menu-section-title">🐟 เมนูปลา (Fish)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">E1</div><div class="menu-item-info"><h4>เนื้อปลากะพงน้ำแดง</h4><p>Sea Bass in Red Sauce</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">E2</div><div class="menu-item-info"><h4>เนื้อปลากะพงราดพริก</h4><p>Sea Bass with Chili Sauce</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">E3</div><div class="menu-item-info"><h4>เนื้อปลากะพงสามรส</h4><p>Sea Bass Three Flavors</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">E4</div><div class="menu-item-info"><h4>เนื้อปลากะพงเปรี้ยวหวาน</h4><p>Sweet &amp; Sour Sea Bass</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">E5</div><div class="menu-item-info"><h4>ปลากะพงทอดน้ำปลา</h4><p>Deep-fried Sea Bass</p></div><div class="menu-item-price">ตามขนาด</div></div>
-                    <div class="menu-item"><div class="menu-item-code">E6/7</div><div class="menu-item-info"><h4>ปลาเก๋าราดพริก</h4><p>Grouper with Chili</p></div><div class="menu-item-price">ตามขนาด</div></div>
-                </div>
-            </div>
-
-            <!-- ผัด -->
-            <div class="menu-section active" data-menu="stir">
-                <div class="menu-section-title">🔥 เมนูผัด (Stir-fried)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">F1</div><div class="menu-item-info"><h4>โหงวก๊วย</h4><p>Five Spice Stew</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F2</div><div class="menu-item-info"><h4>ลูกชิ้นกุ้งผัดผักโสภณ</h4><p>Shrimp Ball with Vegetables</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F3</div><div class="menu-item-info"><h4>กระเพาะปลาผัดแห้งปู</h4><p>Fish Maw Stir-fried with Crab</p></div><div class="menu-item-price">160/270.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F4</div><div class="menu-item-info"><h4>เนื้อปลากะพงผัดขึ้นฉ่าย</h4><p>Sea Bass Stir-fried with Celery</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F5</div><div class="menu-item-info"><h4>เนื้อผัดน้ำมันหอย</h4><p>Beef with Oyster Sauce</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F6</div><div class="menu-item-info"><h4>เต้าหู้ทรงเครื่อง</h4><p>Tofu with Mixed Toppings</p></div><div class="menu-item-price">250/350.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F7</div><div class="menu-item-info"><h4>ผัดโป๊ยเซียน</h4><p>Eight Immortals Stir-fry</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F8</div><div class="menu-item-info"><h4>ผัดจับฉ่ายไหหลำ</h4><p>Hainanese Chap Chai</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">F9</div><div class="menu-item-info"><h4>ออส่วน</h4><p>Oyster Omelette</p></div><div class="menu-item-price">160/220.-</div></div>
-                </div>
-            </div>
-
-            <!-- ทอด/ผัดเผ็ด -->
-            <div class="menu-section active" data-menu="fried">
-                <div class="menu-section-title">🍗 รายการทอด (Deep-fried)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">G1</div><div class="menu-item-info"><h4>ไส้หมูทอดกรอบ</h4><p>Crispy Fried Pork Intestine</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">G2</div><div class="menu-item-info"><h4>กุ้งชุบแป้งทอด</h4><p>Battered Fried Shrimp</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">G3</div><div class="menu-item-info"><h4>ปลาหมึกชุบแป้งทอด</h4><p>Battered Fried Squid</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">G4</div><div class="menu-item-info"><h4>ทอดมันกุ้ง</h4><p>Shrimp Cake</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">G5</div><div class="menu-item-info"><h4>เม็ดมะม่วงหิมพานต์ทอด</h4><p>Fried Cashew Nuts</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">G6</div><div class="menu-item-info"><h4>แฮกิ้นทอด (แบบชิ้น)</h4><p>Fried Hae Kin (Pieces)</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">G7</div><div class="menu-item-info"><h4>แฮ้กิ๊นเส้น (แบบเส้น)</h4><p>Fried Hae Kin (Strips)</p></div><div class="menu-item-price">320.-</div></div>
-                </div>
-
-                <div class="menu-section-title" style="margin-top:25px;">🌶️ ผัดเผ็ด (Stir-fried with Red Curry)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">H1</div><div class="menu-item-info"><h4>เอ็นหมูผัดเผ็ด</h4><p>Spicy Pork Tendon</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">H2</div><div class="menu-item-info"><h4>ปลาดุกผัดเผ็ด</h4><p>Spicy Catfish</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">H3</div><div class="menu-item-info"><h4>รวมมิตรผัดเผ็ด</h4><p>Spicy Mixed Stir-fry</p></div><div class="menu-item-price">160/270.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">H4</div><div class="menu-item-info"><h4>ไข่เยี่ยวม้ากะเพรากรอบ</h4><p>Century Egg with Crispy Basil</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">H5</div><div class="menu-item-info"><h4>เนื้อปูผัดผงกะหรี่</h4><p>Crab Meat with Curry Powder</p></div><div class="menu-item-price">300/450.-</div></div>
-                </div>
-            </div>
-
-            <!-- สลัด -->
-            <div class="menu-section active" data-menu="salad">
-                <div class="menu-section-title">🥬 เมนูสลัด (Salad)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">I1</div><div class="menu-item-info"><h4>สลัดซี่โครงหมู</h4><p>Pork Rib Salad</p></div><div class="menu-item-price">300.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">I2</div><div class="menu-item-info"><h4>สลัดปู</h4><p>Crab Salad</p></div><div class="menu-item-price">300/450.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">I3</div><div class="menu-item-info"><h4>สลัดกุ้งทอด</h4><p>Fried Shrimp Salad</p></div><div class="menu-item-price">160/270.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">I4</div><div class="menu-item-info"><h4>สลัดปลาทอด</h4><p>Fried Fish Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">I5</div><div class="menu-item-info"><h4>สลัดเนื้อสัน</h4><p>Beef Tenderloin Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">I6</div><div class="menu-item-info"><h4>สลัดหมู</h4><p>Pork Salad</p></div><div class="menu-item-price">160/220.-</div></div>
-                </div>
-            </div>
-
-            <!-- ของหวาน/เครื่องดื่ม -->
-            <div class="menu-section active" data-menu="dessert">
-                <div class="menu-section-title">🍨 ของหวาน (Dessert)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">J1</div><div class="menu-item-info"><h4>ไอศกรีมเจลาโต้</h4><p>Gelato Ice Cream</p></div><div class="menu-item-price">49.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">J2</div><div class="menu-item-info"><h4>ลอดช่องวัดเจษ</h4><p>Lod Chong</p></div><div class="menu-item-price">49.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">J3</div><div class="menu-item-info"><h4>แปะก๊วยนมสด (ร้อน/เย็น)</h4><p>Ginkgo in Fresh Milk</p></div><div class="menu-item-price">49.-</div></div>
-                </div>
-
-                <div class="menu-section-title" style="margin-top:25px;">🥤 เครื่องดื่ม (Beverages)</div>
-                <div class="menu-grid">
-                    <div class="menu-item"><div class="menu-item-code">K1</div><div class="menu-item-info"><h4>เบียร์สิงห์</h4><p>Singha Beer</p></div><div class="menu-item-price">85.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">K2</div><div class="menu-item-info"><h4>เบียร์ไฮเนเก้น</h4><p>Heineken Beer</p></div><div class="menu-item-price">100.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">K3</div><div class="menu-item-info"><h4>น้ำเก๊กฮวย</h4><p>Chrysanthemum Tea</p></div><div class="menu-item-price">ร้อน 40/เย็น 60.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">K4</div><div class="menu-item-info"><h4>ชาจีนเย็น</h4><p>Iced Chinese Tea</p></div><div class="menu-item-price">25.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">K5</div><div class="menu-item-info"><h4>น้ำอัดลม</h4><p>Soft Drink</p></div><div class="menu-item-price">15.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">K6</div><div class="menu-item-info"><h4>น้ำเปล่า</h4><p>Drinking Water</p></div><div class="menu-item-price">15.-</div></div>
-                    <div class="menu-item"><div class="menu-item-code">K7</div><div class="menu-item-info"><h4>น้ำแข็ง (ถัง)</h4><p>Ice Bucket</p></div><div class="menu-item-price">15.-</div></div>
-                </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="menu-cta-area fade-in">
-                <h3>📋 ดูเมนูฉบับเต็มพร้อมรูปภาพ</h3>
-                <p>กดปุ่มด้านล่างเพื่อดูเมนูเต็มรูปแบบพร้อมรูปอาหาร หรือโทรสั่งอาหารได้เลย</p>
-                <div class="menu-cta-buttons">
-                    <a href="https://drive.google.com/file/d/1zdg1qBkPIiKiA9-XN5ADUvROOU7LjuXt/view?usp=sharing" target="_blank" class="btn btn-gold">📋 ดูเมนูฉบับเต็ม (PDF)</a>
-                    <a href="tel:0816972739" class="btn btn-outline" style="border-color: var(--gold-primary); color: var(--gold-bright);">📞 โทรสั่ง 081-697-2739</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-badge">📸 แกลเลอรี่</div>
-                <h2 class="section-title">บรรยากาศ<span class="hl">ร้านรุ่งฟ้า</span></h2>
-                <div class="section-line"></div>
-                <p class="section-desc">ชมบรรยากาศร้านและเมนูอาหารจานเด็ด</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item fade-in"><div class="gp g1"><span>🏮</span><span class="label">บรรยากาศร้าน</span></div><div class="gallery-ov"><span>🔍</span></div></div>
-                <div class="gallery-item fade-in"><div class="gp g2"><span>🍗</span><span class="label">ไก่ไทยต้ม</span></div><div class="gallery-ov"><span>🔍</span></div></div>
-                <div class="gallery-item fade-in"><div class="gp g3"><span>🦢</span><span class="label">ขาห่านอบหมี่</span></div><div class="gallery-ov"><span>🔍</span></div></div>
-                <div class="gallery-item fade-in"><div class="gp g4"><span>🐟</span><span class="label">ปลากะพงราดพริก</span></div><div class="gallery-ov"><span>🔍</span></div></div>
-                <div class="gallery-item fade-in"><div class="gp g5"><span>🦐</span><span class="label">กุ้งอบวุ้นเส้น</span></div><div class="gallery-ov"><span>🔍</span></div></div>
-                <div class="gallery-item fade-in"><div class="gp g6"><span>🍚</span><span class="label">ข้าวผัดปู</span></div><div class="gallery-ov"><span>🔍</span></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews -->
-    <section class="reviews" id="reviews">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-badge">💬 รีวิวลูกค้า</div>
-                <h2 class="section-title">เสียงจาก<span class="hl">ลูกค้า</span></h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="reviews-grid">
-                <div class="review-card fade-in">
-                    <div class="review-stars"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
-                    <p class="review-text">"ขาห่านอบหมี่อร่อยมากค่ะ เนื้อนุ่ม หมี่หอม ข้าวผัดปูก็เด็ดเหมือนกัน ทานมาตั้งแต่เด็กจนโต สูตรเดิมไม่เคยเปลี่ยน!"</p>
-                    <div class="review-author"><div class="review-avatar ra1">ส</div><div class="review-author-info"><h5>คุณสมศรี</h5><p>ลูกค้าประจำ 10+ ปี</p></div></div>
-                </div>
-                <div class="review-card fade-in" style="transition-delay:0.1s;">
-                    <div class="review-stars"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
-                    <p class="review-text">"แพะตุ๋นยาจีนดีที่สุดเท่าที่เคยทาน เนื้อนุ่ม น้ำซุปหอม กระเพาะปลาน้ำแดงก็เยี่ยม พนักงานบริการดี ราคาคุ้มค่ามากครับ"</p>
-                    <div class="review-author"><div class="review-avatar ra2">ว</div><div class="review-author-info"><h5>คุณวิชัย</h5><p>ลูกค้าจากปากต่อปาก</p></div></div>
-                </div>
-                <div class="review-card fade-in" style="transition-delay:0.2s;">
-                    <div class="review-stars"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
-                    <p class="review-text">"สั่งชุดมงคล 8 ไหว้ตรุษจีน อร่อยครบ จัดเซ็ตสวยงาม สะดวกมาก ปีหน้าจะกลับมาสั่งอีกแน่นอนค่ะ แนะนำเลย!"</p>
-                    <div class="review-author"><div class="review-avatar ra3">น</div><div class="review-author-info"><h5>คุณนภา</h5><p>สั่งชุดมงคลประจำ</p></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Catering -->
-    <section class="catering" id="catering">
-        <div class="container">
-            <div class="catering-content fade-in">
-                <div class="section-badge" style="background: rgba(212,165,40,0.15); border-color: rgba(212,165,40,0.3); color: var(--gold-bright);">🙏 บริการพิเศษ</div>
-                <h2>รับทำ<span class="gold">อาหารไหว้</span><br>ช่วงเทศกาลจีน</h2>
-                <p>รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน และเทศกาลสำคัญ ด้วยสูตรดั้งเดิม จัดเซ็ตพร้อมเสิร์ฟ</p>
-                <div class="catering-feats">
-                    <div class="catering-feat"><div class="catering-feat-icon">🏮</div><span>ชุดมงคล 5</span></div>
-                    <div class="catering-feat"><div class="catering-feat-icon">⭐</div><span>ชุดมงคล 8</span></div>
-                    <div class="catering-feat"><div class="catering-feat-icon">👑</div><span>ชุดมงคล 10</span></div>
-                    <div class="catering-feat"><div class="catering-feat-icon">📦</div><span>จัดเซ็ตพร้อมส่ง</span></div>
-                </div>
-                <p style="font-size:0.95rem;">สนใจสั่งจอง กรุณาติดต่อล่วงหน้า</p>
-                <div class="catering-btns">
-                    <a href="tel:0816972739" class="btn btn-gold">📞 โทรสั่งจอง 081-697-2739</a>
-                    <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="btn btn-outline">💬 Facebook</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-header fade-in">
-                <div class="section-badge">📍 ติดต่อเรา</div>
-                <h2 class="section-title">มา<span class="hl">ทานกัน</span>นะ</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-items fade-left">
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div class="contact-text"><h4>ที่ตั้งร้าน</h4><p>ถนนลาดหญ้า (มีที่จอดรถสะดวก)</p></div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🕐</div>
-                        <div class="contact-text"><h4>เวลาเปิด-ปิด</h4><p>เปิดทุกวัน: <strong>11:00 - 21:00 น.</strong><br><span style="color:var(--red-primary);font-weight:600;">ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน</span></p></div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div class="contact-text"><h4>โทรศัพท์</h4><p><a href="tel:0816972739">081-697-2739</a><br>โทรสั่งอาหาร หรือจองโต๊ะล่วงหน้าได้เลย</p></div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div class="contact-text"><h4>Facebook</h4><p><a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank">รุ่งฟ้า Rungfah Restaurant</a><br>ติดตามเมนูใหม่ๆ และโปรโมชั่น</p></div>
-                    </div>
-                </div>
-                <div class="contact-map fade-right">
-                    <div class="map-ph">
-                        <span>📍</span>
-                        <p style="font-weight:700;font-size:1.2rem;">ร้านอาหารรุ่งฟ้า</p>
-                        <p>ถนนลาดหญ้า</p>
-                        <p style="font-size:0.85rem;color:#999;margin-top:5px;">มีที่จอดรถสะดวก</p>
-                        <a href="https://maps.google.com/?q=ร้านอาหารรุ่งฟ้า+ลาดหญ้า" target="_blank" class="btn btn-gold" style="margin-top:15px;font-size:0.9rem;padding:10px 25px;">🗺️ เปิด Google Maps</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="flogo">
-                    <div class="flogo-icon">天光</div>
-                    <div class="flogo-text"><h3>ร้านอาหารรุ่งฟ้า</h3><p>Rungfah Restaurant</p></div>
-                </div>
-                <p>ร้านอาหารไทย-จีนไหหลำแท้ เปิดให้บริการมากว่า 40 ปี สูตรดั้งเดิมสืบทอดจากรุ่นสู่รุ่น ตั้งอยู่บนถนนลาดหญ้า</p>
-                <div class="footer-social">
-                    <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank">📘</a>
-                    <a href="tel:0816972739">📞</a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>เมนูเว็บไซต์</h4>
-                <ul>
-                    <li><a href="#home">หน้าแรก</a></li>
-                    <li><a href="#about">เกี่ยวกับเรา</a></li>
-                    <li><a href="#sets">ชุดมงคล</a></li>
-                    <li><a href="#menu">เมนูอาหาร</a></li>
-                    <li><a href="#gallery">แกลเลอรี่</a></li>
-                    <li><a href="#contact">ติดต่อเรา</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>บริการ</h4>
-                <ul>
-                    <li><a href="#menu">ทานที่ร้าน</a></li>
-                    <li><a href="tel:0816972739">สั่งกลับบ้าน</a></li>
-                    <li><a href="#catering">อาหารไหว้</a></li>
-                    <li><a href="#sets">ชุดมงคล</a></li>
-                    <li><a href="tel:0816972739">จองโต๊ะ</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>ข้อมูลร้าน</h4>
-                <div class="fcontact"><span>📍</span><span>ถนนลาดหญ้า ที่จอดสะดวก</span></div>
-                <div class="fcontact"><span>🕐</span><span>11:00-21:00 น.<br>(ปิดจันทร์ที่ 2, 4 ของเดือน)</span></div>
-                <div class="fcontact"><span>📞</span><span>081-697-2739</span></div>
-                <div class="fcontact"><span>📘</span><span>รุ่งฟ้า Rungfah Restaurant</span></div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2024 ร้านอาหารรุ่งฟ้า Rungfah Restaurant | อาหารจีน-ไหหลำแท้ ตั้งแต่ พ.ศ. 2524</p>
-        </div>
-    </footer>
-
-    <!-- Floating Buttons -->
-    <div class="float-contact">
-        <a href="#home" class="float-btn top-btn" id="backToTop">⬆️</a>
-        <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="float-btn fb">📘</a>
-        <a href="tel:0816972739" class="float-btn phone">📞</a>
     </div>
+    <div class="f-bot"><p>© 2024 ร้านอาหารรุ่งฟ้า Rungfah Restaurant | อาหารจีน-ไหหลำแท้ ตั้งแต่ พ.ศ. 2524</p></div>
+</footer>
 
-    <script>
-        // Preloader
-        window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1500);
-        });
+<div class="float">
+    <a href="#home" class="fbb totop" id="btt">⬆️</a>
+    <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="fbb face">📘</a>
+    <a href="tel:024372267" class="fbb phone">📞</a>
+</div>
 
-        // Navbar scroll
-        const navbar = document.getElementById('navbar');
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-            backToTop.classList.toggle('visible', window.scrollY > 500);
-
-            document.querySelectorAll('section[id]').forEach(sec => {
-                const top = sec.offsetTop - 100;
-                if (window.scrollY >= top && window.scrollY < top + sec.offsetHeight) {
-                    document.querySelectorAll('.nav-links a').forEach(a => {
-                        a.classList.toggle('active', a.getAttribute('href') === `#${sec.id}`);
-                    });
-                }
-            });
-        });
-
-        // Hamburger
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        const overlay = document.getElementById('mobileOverlay');
-
-        function closeNav() {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('open');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        hamburger.addEventListener('click', () => {
-            const isOpen = navLinks.classList.toggle('open');
-            hamburger.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = isOpen ? 'hidden' : '';
-        });
-
-        overlay.addEventListener('click', closeNav);
-        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
-
-        // Hero slideshow
-        const slides = document.querySelectorAll('.hero-bg-slide');
-        let cur = 0;
-        setInterval(() => {
-            slides[cur].classList.remove('active');
-            cur = (cur + 1) % slides.length;
-            slides[cur].classList.add('active');
-        }, 5000);
-
-        // Menu tabs
-        function showMenu(cat, btn) {
-            document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-            btn.classList.add('active');
-
-            document.querySelectorAll('.menu-section').forEach(s => {
-                if (cat === 'all') {
-                    s.classList.add('active');
-                } else {
-                    s.classList.toggle('active', s.dataset.menu === cat);
-                }
-            });
-        }
-
-        // Scroll animations
-        const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('.fade-in,.fade-left,.fade-right').forEach(el => obs.observe(el));
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', function(e) {
-                e.preventDefault();
-                const t = document.querySelector(this.getAttribute('href'));
-                if (t) window.scrollTo({ top: t.offsetTop - 80, behavior: 'smooth' });
-            });
-        });
-    </script>
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),1500);});
+const nav=document.getElementById('navbar'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',scrollY>50);
+    btt.classList.toggle('vis',scrollY>500);
+    document.querySelectorAll('section[id]').forEach(s=>{
+        const t=s.offsetTop-100;
+        if(scrollY>=t&&scrollY<t+s.offsetHeight)
+            document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+s.id));
+    });
+});
+const ham=document.getElementById('ham'),nl=document.getElementById('navLinks'),ov=document.getElementById('mobOv');
+function closeN(){ham.classList.remove('active');nl.classList.remove('open');ov.classList.remove('active');document.body.style.overflow='';}
+ham.addEventListener('click',()=>{const o=nl.classList.toggle('open');ham.classList.toggle('active');ov.classList.toggle('active');document.body.style.overflow=o?'hidden':'';});
+ov.addEventListener('click',closeN);
+nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeN));
+const slides=document.querySelectorAll('.hs');let cur=0;
+setInterval(()=>{slides[cur].classList.remove('active');cur=(cur+1)%slides.length;slides[cur].classList.add('active');},5000);
+function showM(cat,btn){
+    document.querySelectorAll('.mt').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.ms').forEach(s=>s.classList.toggle('active',cat==='all'||s.dataset.m===cat));
+}
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');});},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fi,.fla,.fra').forEach(el=>obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)window.scrollTo({top:t.offsetTop-80,behavior:'smooth'});});
+});
+</script>
 </body>
 </html>
