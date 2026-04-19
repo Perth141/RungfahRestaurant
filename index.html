@@ -7,26 +7,25 @@
     <link rel="icon" type="image/png" href="https://i.ibb.co/nNvmDPmW/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root{--r:#C41E24;--rd:#8B0000;--rdp:#5C0A0A;--g:#D4A528;--gl:#F0D060;--gb:#FFD700;--cr:#FFF8E7;--bk:#1A1A1A;--w:#FFFFFF;}
+        :root{--r:#C41E24;--rd:#8B0000;--rdp:#5C0A0A;--g:#D4A528;--gb:#FFD700;--cr:#FFF8E7;--bk:#1A1A1A;--w:#FFFFFF;}
         *{margin:0;padding:0;box-sizing:border-box;}
         html{scroll-behavior:smooth;}
         body{font-family:'Noto Sans Thai',sans-serif;background:var(--cr);color:var(--bk);overflow-x:hidden;}
         ::-webkit-scrollbar{width:10px;}
         ::-webkit-scrollbar-track{background:var(--rd);}
         ::-webkit-scrollbar-thumb{background:var(--g);border-radius:5px;}
-
-        /* LOGO ZOOM - ไม่ให้เห็นกรอบ */
         .pre-logo img,.nav-logo img,.hero-lm img,.about-img .logo-b img,.fli img{transform:scale(1.15);}
-
-        /* PRELOADER */
+        .mi-img{width:55px;height:55px;border-radius:10px;overflow:hidden;flex-shrink:0;}
+        .mi-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+        .mi:hover .mi-img img{transform:scale(1.1);}
+        .svg-i{display:inline-block;width:1.2em;height:1.2em;vertical-align:middle;}
+        .svg-i svg{width:100%;height:100%;fill:currentColor;}
         .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--rd);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s,visibility .8s;}
         .preloader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
         .pre-logo{width:120px;height:120px;border:4px solid var(--g);border-radius:50%;overflow:hidden;animation:pulse 1.5s ease-in-out infinite;}
         .pre-logo img{width:100%;height:100%;object-fit:cover;}
         .pre-text{color:var(--g);margin-top:20px;font-size:1.1rem;letter-spacing:3px;}
         @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(212,165,40,.3);}50%{transform:scale(1.1);box-shadow:0 0 40px rgba(212,165,40,.6);}}
-
-        /* NAVBAR */
         .nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:12px 0;transition:all .4s;background:transparent;}
         .nav.scrolled{background:rgba(139,0,0,.97);padding:6px 0;box-shadow:0 4px 30px rgba(0,0,0,.4);backdrop-filter:blur(10px);}
         .nav-c{max-width:1400px;margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between;}
@@ -52,8 +51,6 @@
         .ham.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px);}
         .mob-ov{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:998;}
         .mob-ov.active{display:block;}
-
-        /* HERO */
         .hero{position:relative;height:100vh;min-height:650px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--rd);}
         .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;}
         .hs{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity 1.5s;}
@@ -104,8 +101,6 @@
         @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-8px);}}
         @keyframes fid{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
         @keyframes fiu{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-
-        /* SECTIONS */
         section{padding:85px 0;position:relative;}
         .ctn{max-width:1200px;margin:0 auto;padding:0 28px;}
         .sh{text-align:center;margin-bottom:50px;}
@@ -114,8 +109,6 @@
         .stt .hl{color:var(--g);}
         .sli{width:70px;height:4px;background:linear-gradient(90deg,var(--r),var(--g));margin:0 auto 15px;border-radius:2px;}
         .sde{font-size:.95rem;color:#666;max-width:560px;margin:0 auto;line-height:1.8;}
-
-        /* ABOUT */
         .about{background:var(--w);}
         .about-g{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
         .about-img{width:100%;height:420px;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15);position:relative;background:linear-gradient(135deg,var(--r),var(--rd));display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--w);}
@@ -141,8 +134,6 @@
         .hours-row .day{color:#555;font-weight:500;}
         .hours-row .time{color:var(--bk);font-weight:600;}
         .hours-closed{color:var(--r);font-weight:600;font-size:.85rem;margin-top:8px;}
-
-        /* SETS */
         .sets{background:linear-gradient(135deg,var(--rd),var(--rdp));color:var(--w);}
         .sets .sb{background:rgba(212,165,40,.15);border-color:rgba(212,165,40,.3);color:var(--gb);}
         .sets .stt{color:var(--w);}.sets .stt .hl{color:var(--gb);}
@@ -153,15 +144,13 @@
         .sc.feat{border-color:var(--g);transform:scale(1.05);background:rgba(212,165,40,.1);}
         .sc.feat:hover{transform:scale(1.05) translateY(-6px);}
         .sc .rib{position:absolute;top:14px;right:-34px;background:var(--g);color:var(--rd);padding:4px 38px;font-size:.7rem;font-weight:700;transform:rotate(45deg);}
-        .sc-i{font-size:3rem;margin-bottom:12px;display:block;}
+        .sc-img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid var(--g);margin:0 auto 12px;display:block;}
         .sc-n{font-size:1.3rem;font-weight:800;color:var(--gb);margin-bottom:2px;}
         .sc-en{font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:2px;}
         .sc-d{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:12px;}
         .sc-p{font-size:2.1rem;font-weight:900;color:var(--gb);}
         .sc-p small{font-size:.85rem;font-weight:400;color:rgba(255,255,255,.5);}
         .sc-dv{width:50px;height:2px;background:var(--g);margin:10px auto;opacity:.5;}
-
-        /* MENU */
         .menu{background:var(--w);}
         .mtabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:30px;}
         .mt{padding:8px 18px;border:2px solid var(--r);background:transparent;color:var(--r);border-radius:50px;cursor:pointer;font-family:'Noto Sans Thai',sans-serif;font-size:.82rem;font-weight:600;transition:all .3s;}
@@ -180,8 +169,6 @@
         .mcta h3{font-size:1.5rem;font-weight:800;margin-bottom:8px;}
         .mcta p{color:rgba(255,255,255,.8);margin-bottom:15px;font-size:.9rem;}
         .mcta-b{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-
-        /* GALLERY */
         .gallery{background:var(--cr);}
         .gal-g{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,190px);gap:10px;}
         .gi{border-radius:12px;overflow:hidden;cursor:pointer;transition:all .4s;position:relative;}
@@ -191,6 +178,8 @@
         .gp::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.5) 100%);}
         .gp>*{position:relative;z-index:1;}
         .gp .lbl{font-size:.75rem;font-weight:600;}
+        .gp img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;}
+        .gp.has-img::after{background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.6) 100%);}
         .g1{background:linear-gradient(135deg,#D32F2F,#B71C1C);}
         .g2{background:linear-gradient(135deg,#E65100,#BF360C);}
         .g3{background:linear-gradient(135deg,#F57F17,#E65100);}
@@ -200,8 +189,6 @@
         .gov{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(139,0,0,.7);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;z-index:5;}
         .gi:hover .gov{opacity:1;}
         .gov span{color:var(--w);font-size:2rem;}
-
-        /* REVIEWS */
         .reviews{background:var(--w);}
         .rev-g{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
         .rc{background:var(--cr);border-radius:16px;padding:28px;transition:all .3s;position:relative;}
@@ -217,8 +204,6 @@
         .r3{background:linear-gradient(135deg,#4CAF50,#2E7D32);}
         .rai h5{font-size:.85rem;font-weight:600;}
         .rai p{font-size:.72rem;color:#999;}
-
-        /* CATERING */
         .catering{background:linear-gradient(135deg,var(--rd),var(--rdp));color:var(--w);text-align:center;overflow:hidden;position:relative;}
         .catering::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(212,165,40,.05) 0%,transparent 70%);animation:rot 30s linear infinite;}
         @keyframes rot{from{transform:rotate(0);}to{transform:rotate(360deg);}}
@@ -231,8 +216,6 @@
         .cf-i{width:56px;height:56px;background:rgba(212,165,40,.15);border:2px solid var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 6px;}
         .cf span{font-size:.78rem;color:var(--g);font-weight:500;}
         .cat-b{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px;}
-
-        /* CONTACT */
         .contact{background:var(--cr);}
         .con-g{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
         .con-items{display:flex;flex-direction:column;gap:16px;}
@@ -245,8 +228,6 @@
         .ci-t a:hover{text-decoration:underline;}
         .con-map{border-radius:16px;overflow:hidden;box-shadow:0 8px 35px rgba(0,0,0,.1);height:100%;min-height:360px;}
         .con-map iframe{width:100%;height:100%;border:none;}
-
-        /* FOOTER */
         .footer{background:#0D0D0D;color:var(--w);padding:50px 0 0;}
         .f-g{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:30px;max-width:1200px;margin:0 auto;padding:0 28px 30px;}
         .f-brand .fl{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
@@ -258,6 +239,7 @@
         .f-soc{display:flex;gap:8px;}
         .f-soc a{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--w);text-decoration:none;font-size:.9rem;transition:all .3s;}
         .f-soc a:hover{background:var(--r);transform:translateY(-3px);}
+        .f-soc a svg{width:18px;height:18px;fill:currentColor;}
         .fc h4{color:var(--gb);font-size:.9rem;margin-bottom:14px;font-weight:700;}
         .fc ul{list-style:none;}
         .fc ul li{margin-bottom:6px;}
@@ -267,24 +249,21 @@
         .fci span:first-child{font-size:.9rem;flex-shrink:0;}
         .f-bot{border-top:1px solid rgba(255,255,255,.08);padding:16px 28px;text-align:center;}
         .f-bot p{color:#555;font-size:.75rem;}
-
-        /* FLOAT */
         .float{position:fixed;bottom:20px;right:20px;z-index:100;display:flex;flex-direction:column;gap:8px;}
         .fbb{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--w);text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.3);transition:all .3s;}
         .fbb:hover{transform:scale(1.1);}
+        .fbb svg{width:24px;height:24px;fill:#fff;}
         .fbb.phone{background:linear-gradient(135deg,#4CAF50,#2E7D32);}
         .fbb.face{background:linear-gradient(135deg,#1877F2,#0D47A1);}
+        .fbb.line{background:linear-gradient(135deg,#06C755,#04a648);}
         .fbb.totop{background:linear-gradient(135deg,var(--r),var(--rd));opacity:0;visibility:hidden;transition:all .3s;}
         .fbb.totop.vis{opacity:1;visibility:visible;}
-
-        /* ANIM */
         .fi{opacity:0;transform:translateY(35px);transition:all .8s;}
         .fi.vis{opacity:1;transform:translateY(0);}
         .fla{opacity:0;transform:translateX(-40px);transition:all .8s;}
         .fla.vis{opacity:1;transform:translateX(0);}
         .fra{opacity:0;transform:translateX(40px);transition:all .8s;}
         .fra.vis{opacity:1;transform:translateX(0);}
-
         @media(max-width:1024px){
             .hero-h{font-size:3rem;}.hero-h .go{font-size:2rem;}
             .sets-g{grid-template-columns:repeat(3,1fr);}.sc.feat{transform:scale(1);}
@@ -367,35 +346,33 @@
 </section>
 
 <section class="about" id="about">
-    <div class="ctn">
-        <div class="about-g">
-            <div class="about-img fla">
-                <div class="about-yr"><span class="y">40+</span><span class="l">ปีแห่งรสชาติ</span></div>
-                <div class="logo-b"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="Logo"></div>
-                <span class="t1">ร้านอาหารรุ่งฟ้า</span>
-                <span class="t2">ถ.ลาดหญ้า • Ladya Road</span>
-            </div>
-            <div class="about-ct fra">
-                <div class="sb">🏮 เรื่องราวของเรา</div>
-                <h3>สืบทอดรสชาติ<br><span class="go">อาหารจีน-ไหหลำแท้</span></h3>
-                <p>ร้านอาหารรุ่งฟ้า เปิดให้บริการมาตั้งแต่ปี พ.ศ. 2524 เป็นร้านอาหารไทย-จีนไหหลำแท้ สูตรดั้งเดิมสืบทอดจากรุ่นสู่รุ่น ตั้งอยู่บนถนนลาดหญ้า ก่อนถึงลาดหญ้าซอย 9 ติดกับทางเข้าโรงแรมธนบุรีโฮเต็ล</p>
-                <p>ทุกเมนูปรุงสดใหม่ทุกจานด้วยวัตถุดิบคุณภาพ รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน สามารถติดต่อสอบถามได้</p>
-                <div class="hours-box">
-                    <h4>🕐 เวลาเปิด-ปิด</h4>
-                    <div class="hours-row"><span class="day">จันทร์ - เสาร์ (Mon-Sat)</span><span class="time">11:00-14:00 &amp; 17:00-21:00</span></div>
-                    <div class="hours-row"><span class="day">วันอาทิตย์ (Sunday)</span><span class="time">11:00-21:00</span></div>
-                    <p class="hours-closed">⚠️ ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน (Closed every 2nd &amp; 4th Monday)</p>
-                </div>
-                <div class="about-f">
-                    <div class="af"><div class="af-i">🍲</div><span>สูตรดั้งเดิมไหหลำ</span></div>
-                    <div class="af"><div class="af-i">🥬</div><span>วัตถุดิบสดใหม่</span></div>
-                    <div class="af"><div class="af-i">👨‍🍳</div><span>เชฟผู้ชำนาญ</span></div>
-                    <div class="af"><div class="af-i">🙏</div><span>รับทำอาหารไหว้</span></div>
-                </div>
-                <a href="#menu" class="btn btn-g">📖 ดูเมนูทั้งหมด</a>
-            </div>
+    <div class="ctn"><div class="about-g">
+        <div class="about-img fla">
+            <div class="about-yr"><span class="y">40+</span><span class="l">ปีแห่งรสชาติ</span></div>
+            <div class="logo-b"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="Logo"></div>
+            <span class="t1">ร้านอาหารรุ่งฟ้า</span>
+            <span class="t2">ถ.ลาดหญ้า • Ladya Road</span>
         </div>
-    </div>
+        <div class="about-ct fra">
+            <div class="sb">🏮 เรื่องราวของเรา</div>
+            <h3>สืบทอดรสชาติ<br><span class="go">อาหารจีน-ไหหลำแท้</span></h3>
+            <p>ร้านอาหารรุ่งฟ้า เปิดให้บริการมาตั้งแต่ปี พ.ศ. 2524 เป็นร้านอาหารไทย-จีนไหหลำแท้ สูตรดั้งเดิมสืบทอดจากรุ่นสู่รุ่น ตั้งอยู่บนถนนลาดหญ้า ก่อนถึงลาดหญ้าซอย 9 ติดกับทางเข้าโรงแรมธนบุรีโฮเต็ล</p>
+            <p>ทุกเมนูปรุงสดใหม่ทุกจานด้วยวัตถุดิบคุณภาพ รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน สามารถติดต่อสอบถามได้</p>
+            <div class="hours-box">
+                <h4>🕐 เวลาเปิด-ปิด</h4>
+                <div class="hours-row"><span class="day">จันทร์ - เสาร์ (Mon-Sat)</span><span class="time">11:00-14:00 &amp; 17:00-21:00</span></div>
+                <div class="hours-row"><span class="day">วันอาทิตย์ (Sunday)</span><span class="time">11:00-21:00</span></div>
+                <p class="hours-closed">⚠️ ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน (Closed every 2nd &amp; 4th Monday)</p>
+            </div>
+            <div class="about-f">
+                <div class="af"><div class="af-i">🍲</div><span>สูตรดั้งเดิมไหหลำ</span></div>
+                <div class="af"><div class="af-i">🥬</div><span>วัตถุดิบสดใหม่</span></div>
+                <div class="af"><div class="af-i">👨‍🍳</div><span>เชฟผู้ชำนาญ</span></div>
+                <div class="af"><div class="af-i">🙏</div><span>รับทำอาหารไหว้</span></div>
+            </div>
+            <a href="#menu" class="btn btn-g">📖 ดูเมนูทั้งหมด</a>
+        </div>
+    </div></div>
 </section>
 
 <section class="sets" id="sets">
@@ -407,9 +384,9 @@
             <p class="sde">อาหารชุดมงคลสำหรับไหว้เจ้า วันสำคัญ และเทศกาลจีน จัดเซ็ตพร้อมเสิร์ฟ</p>
         </div>
         <div class="sets-g">
-            <div class="sc fi"><span class="sc-i">🏮</span><div class="sc-n">ชุดมงคล 5</div><div class="sc-en">Auspicious Set 5</div><div class="sc-d">อาหาร 5 อย่าง (5 Dishes)</div><div class="sc-dv"></div><div class="sc-p">1,490 <small>บาท</small></div></div>
-            <div class="sc feat fi" style="transition-delay:.1s;"><div class="rib">แนะนำ</div><span class="sc-i">⭐</span><div class="sc-n">ชุดมงคล 8</div><div class="sc-en">Auspicious Set 8</div><div class="sc-d">อาหาร 8 อย่าง (8 Dishes)</div><div class="sc-dv"></div><div class="sc-p">2,190 <small>บาท</small></div></div>
-            <div class="sc fi" style="transition-delay:.2s;"><span class="sc-i">👑</span><div class="sc-n">ชุดมงคล 10</div><div class="sc-en">Auspicious Set 10</div><div class="sc-d">อาหาร 10 อย่าง (10 Dishes)</div><div class="sc-dv"></div><div class="sc-p">3,190 <small>บาท</small></div></div>
+            <div class="sc fi"><img class="sc-img" src="https://i.ibb.co/LXKdVrRm/set5.jpg" alt="ชุดมงคล 5" loading="lazy"><div class="sc-n">ชุดมงคล 5</div><div class="sc-en">Auspicious Set 5</div><div class="sc-d">อาหาร 5 อย่าง (5 Dishes)</div><div class="sc-dv"></div><div class="sc-p">1,490 <small>บาท</small></div></div>
+            <div class="sc feat fi" style="transition-delay:.1s;"><div class="rib">แนะนำ</div><img class="sc-img" src="https://i.ibb.co/9HxSd2hW/set8.jpg" alt="ชุดมงคล 8" loading="lazy"><div class="sc-n">ชุดมงคล 8</div><div class="sc-en">Auspicious Set 8</div><div class="sc-d">อาหาร 8 อย่าง (8 Dishes)</div><div class="sc-dv"></div><div class="sc-p">2,190 <small>บาท</small></div></div>
+            <div class="sc fi" style="transition-delay:.2s;"><img class="sc-img" src="https://i.ibb.co/dwJcws1m/set10.jpg" alt="ชุดมงคล 10" loading="lazy"><div class="sc-n">ชุดมงคล 10</div><div class="sc-en">Auspicious Set 10</div><div class="sc-d">อาหาร 10 อย่าง (10 Dishes)</div><div class="sc-dv"></div><div class="sc-p">3,190 <small>บาท</small></div></div>
         </div>
     </div>
 </section>
@@ -436,11 +413,11 @@
         <div class="ms active" data-m="sp">
             <div class="mst">เมนูพิเศษ (Special Dishes)</div>
             <div class="mg">
-                <div class="mi"><div class="mic">A1</div><div class="mii"><h4>แพะตุ๋นยาจีน</h4><p>Stewed Goat in Chinese Herbs</p></div><div class="mip">300/400.-</div></div>
-                <div class="mi"><div class="mic">A2</div><div class="mii"><h4>ซี่โครงหมูอบถั่วลันเตา</h4><p>Braised Pork Ribs with Peas</p></div><div class="mip">160/220.-</div></div>
-                <div class="mi"><div class="mic">A3</div><div class="mii"><h4>ขาห่านอบหมี่</h4><p>Braised Goose Webs with Egg Noodles</p></div><div class="mip">400/500.-</div></div>
-                <div class="mi"><div class="mic">A4</div><div class="mii"><h4>ไก่ไทยต้ม</h4><p>Boiled Thai Chicken</p></div><div class="mip">160/270.-</div></div>
-                <div class="mi"><div class="mic">A5</div><div class="mii"><h4>ข้าวผัดปู</h4><p>Crab Fried Rice</p></div><div class="mip">260/370.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/pCF7FK3/goat.jpg" alt="" loading="lazy"></div><div class="mic">A1</div><div class="mii"><h4>แพะตุ๋นยาจีน</h4><p>Stewed Goat in Chinese Herbs</p></div><div class="mip">300/400.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/3m4VRfFP/ribs.jpg" alt="" loading="lazy"></div><div class="mic">A2</div><div class="mii"><h4>ซี่โครงหมูอบถั่วลันเตา</h4><p>Braised Pork Ribs with Peas</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/pjRky6PR/goose.jpg" alt="" loading="lazy"></div><div class="mic">A3</div><div class="mii"><h4>ขาห่านอบหมี่</h4><p>Braised Goose Webs with Egg Noodles</p></div><div class="mip">400/500.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/3YTxXmnf/chicken.jpg" alt="" loading="lazy"></div><div class="mic">A4</div><div class="mii"><h4>ไก่ไทยต้ม</h4><p>Boiled Thai Chicken</p></div><div class="mip">160/270.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/0yfSTS8g/crabrice.jpg" alt="" loading="lazy"></div><div class="mic">A5</div><div class="mii"><h4>ข้าวผัดปู</h4><p>Crab Fried Rice</p></div><div class="mip">260/370.-</div></div>
                 <div class="mi"><div class="mic">A6</div><div class="mii"><h4>เอ็นหมูน้ำแดง</h4><p>Braised Pork Tendon in Red Gravy</p></div><div class="mip">250/350.-</div></div>
                 <div class="mi"><div class="mic">A7</div><div class="mii"><h4>กระเพาะปลาน้ำแดง</h4><p>Braised Fish Maw in Red Gravy</p></div><div class="mip">250/350.-</div></div>
                 <div class="mi"><div class="mic">A8</div><div class="mii"><h4>กุ้งอบวุ้นเส้น</h4><p>Casseroled Shrimps with Glass Noodles</p></div><div class="mip">250/350.-</div></div>
@@ -471,39 +448,39 @@
         <div class="ms active" data-m="fish">
             <div class="mst">เมนูปลา (Fish)</div>
             <div class="mg">
-                <div class="mi"><div class="mic">E1</div><div class="mii"><h4>เนื้อปลากะพงน้ำแดง</h4><p>Deep-fried Sea Bass in Red Gravy</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/SwPbbW0Q/seabass.jpg" alt="" loading="lazy"></div><div class="mic">E1</div><div class="mii"><h4>เนื้อปลากะพงน้ำแดง</h4><p>Deep-fried Sea Bass in Red Gravy</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">E2</div><div class="mii"><h4>เนื้อปลากะพงราดพริก</h4><p>Deep-fried Sea Bass with Chili Sauce</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">E3</div><div class="mii"><h4>เนื้อปลากะพงสามรส</h4><p>Deep-fried Sea Bass with Three-Flavored Sauce</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">E4</div><div class="mii"><h4>เนื้อปลากะพงเปรี้ยวหวาน</h4><p>Deep-fried Sea Bass with Sweet &amp; Sour Sauce</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">E5</div><div class="mii"><h4>ปลากะพงทอดน้ำปลา</h4><p>Deep-fried Sea Bass with Fish Sauce</p></div><div class="mip">ตามขนาด</div></div>
-                <div class="mi"><div class="mic">E6/7</div><div class="mii"><h4>ปลาเก๋าราดพริก</h4><p>Deep-fried Grouper with Chili Sauce</p></div><div class="mip">ตามขนาด</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/1Yjywg77/grouper.jpg" alt="" loading="lazy"></div><div class="mic">E6/7</div><div class="mii"><h4>ปลาเก๋าราดพริก</h4><p>Deep-fried Grouper with Chili Sauce</p></div><div class="mip">ตามขนาด</div></div>
             </div>
         </div>
 
         <div class="ms active" data-m="stir">
             <div class="mst">เมนูผัด (Stir-fried)</div>
             <div class="mg">
-                <div class="mi"><div class="mic">F1</div><div class="mii"><h4>โหงวก๊วย</h4><p>Stir-fried Five Kinds of Nuts</p></div><div class="mip">160/220.-</div></div>
-                <div class="mi"><div class="mic">F2</div><div class="mii"><h4>ลูกชิ้นกุ้งผัดผักโสภณ</h4><p>Stir-fried Shrimp Balls with Chinese Mustard Green</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/JRdc51CQ/ngokway.jpg" alt="" loading="lazy"></div><div class="mic">F1</div><div class="mii"><h4>โหงวก๊วย</h4><p>Stir-fried Five Kinds of Nuts</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/HpgD2qYd/shrimpball.jpg" alt="" loading="lazy"></div><div class="mic">F2</div><div class="mii"><h4>ลูกชิ้นกุ้งผัดผักโสภณ</h4><p>Stir-fried Shrimp Balls with Chinese Mustard Green</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">F3</div><div class="mii"><h4>กระเพาะปลาผัดแห้งปู</h4><p>Stir-fried Fish Maw with Crab Meat</p></div><div class="mip">160/270.-</div></div>
                 <div class="mi"><div class="mic">F4</div><div class="mii"><h4>เนื้อปลากะพงผัดขึ้นฉ่าย</h4><p>Stir-fried Sea Bass with Celery</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">F5</div><div class="mii"><h4>เนื้อผัดน้ำมันหอย</h4><p>Stir-fried Beef with Oyster Sauce</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">F6</div><div class="mii"><h4>เต้าหู้ทรงเครื่อง</h4><p>Braised Tofu with Minced Pork and Shrimps</p></div><div class="mip">250/350.-</div></div>
                 <div class="mi"><div class="mic">F7</div><div class="mii"><h4>ผัดโป๊ยเซียน</h4><p>Stir-fried Eight Immortals</p></div><div class="mip">160/220.-</div></div>
-                <div class="mi"><div class="mic">F8</div><div class="mii"><h4>ผัดจับฉ่ายไหหลำ</h4><p>Stir-fried Hainanese Mixed Vegetables</p></div><div class="mip">160/220.-</div></div>
-                <div class="mi"><div class="mic">F9</div><div class="mii"><h4>ออส่วน</h4><p>Sautéed Oysters with Flour and Egg</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/84N4zjgr/chapchai.jpg" alt="" loading="lazy"></div><div class="mic">F8</div><div class="mii"><h4>ผัดจับฉ่ายไหหลำ</h4><p>Stir-fried Hainanese Mixed Vegetables</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/pjzS2DCn/orsuan.jpg" alt="" loading="lazy"></div><div class="mic">F9</div><div class="mii"><h4>ออส่วน</h4><p>Sautéed Oysters with Flour and Egg</p></div><div class="mip">160/220.-</div></div>
             </div>
         </div>
 
         <div class="ms active" data-m="fried">
             <div class="mst">รายการทอด (Deep-fried)</div>
             <div class="mg">
-                <div class="mi"><div class="mic">G1</div><div class="mii"><h4>ไส้หมูทอดกรอบ</h4><p>Deep-fried Crispy Pork Intestines</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/pBXRRKyf/porkfry.jpg" alt="" loading="lazy"></div><div class="mic">G1</div><div class="mii"><h4>ไส้หมูทอดกรอบ</h4><p>Deep-fried Crispy Pork Intestines</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">G2</div><div class="mii"><h4>กุ้งชุบแป้งทอด</h4><p>Deep-fried Battered Shrimps</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">G3</div><div class="mii"><h4>ปลาหมึกชุบแป้งทอด</h4><p>Deep-fried Battered Squid</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">G4</div><div class="mii"><h4>ทอดมันกุ้ง</h4><p>Deep-fried Shrimp Cakes</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">G5</div><div class="mii"><h4>เม็ดมะม่วงหิมพานต์ทอด</h4><p>Fried Cashew Nuts</p></div><div class="mip">160/220.-</div></div>
-                <div class="mi"><div class="mic">G6</div><div class="mii"><h4>แฮกิ้นทอด (ชิ้น)</h4><p>Deep-fried Prawn Rolls Sliced</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/pjpmzR1k/haekin.jpg" alt="" loading="lazy"></div><div class="mic">G6</div><div class="mii"><h4>แฮกิ้นทอด (ชิ้น)</h4><p>Deep-fried Prawn Rolls Sliced</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">G7</div><div class="mii"><h4>แฮ้กิ๊นเส้น</h4><p>Deep-fried Prawn Rolls Full Length</p></div><div class="mip">320.-</div></div>
             </div>
             <div class="mst" style="margin-top:18px;">ผัดเผ็ด (Stir-fried with Red Curry)</div>
@@ -512,7 +489,7 @@
                 <div class="mi"><div class="mic">H2</div><div class="mii"><h4>ปลาดุกผัดเผ็ด</h4><p>Stir-fried Catfish with Red Curry</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">H3</div><div class="mii"><h4>รวมมิตรผัดเผ็ด</h4><p>Stir-fried Mixed Seafood with Red Curry</p></div><div class="mip">160/270.-</div></div>
                 <div class="mi"><div class="mic">H4</div><div class="mii"><h4>ไข่เยี่ยวม้ากะเพรากรอบ</h4><p>Stir-fried Pickled Eggs with Fried Basil</p></div><div class="mip">160/220.-</div></div>
-                <div class="mi"><div class="mic">H5</div><div class="mii"><h4>เนื้อปูผัดผงกะหรี่</h4><p>Stir-fried Crab with Curry Powder</p></div><div class="mip">300/450.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/7NWWWTjn/crabcurry.jpg" alt="" loading="lazy"></div><div class="mic">H5</div><div class="mii"><h4>เนื้อปูผัดผงกะหรี่</h4><p>Stir-fried Crab with Curry Powder</p></div><div class="mip">300/450.-</div></div>
             </div>
         </div>
 
@@ -521,9 +498,9 @@
             <div class="mg">
                 <div class="mi"><div class="mic">I1</div><div class="mii"><h4>สลัดซี่โครงหมู</h4><p>Pork Chop Fried Salad</p></div><div class="mip">300.-</div></div>
                 <div class="mi"><div class="mic">I2</div><div class="mii"><h4>สลัดปู</h4><p>Crab Salad</p></div><div class="mip">300/450.-</div></div>
-                <div class="mi"><div class="mic">I3</div><div class="mii"><h4>สลัดกุ้งทอด</h4><p>Fried Prawns Salad</p></div><div class="mip">160/270.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/5xn7T8VP/shrimpsalad.jpg" alt="" loading="lazy"></div><div class="mic">I3</div><div class="mii"><h4>สลัดกุ้งทอด</h4><p>Fried Prawns Salad</p></div><div class="mip">160/270.-</div></div>
                 <div class="mi"><div class="mic">I4</div><div class="mii"><h4>สลัดปลาทอด</h4><p>Fried Sea Bass Salad</p></div><div class="mip">160/220.-</div></div>
-                <div class="mi"><div class="mic">I5</div><div class="mii"><h4>สลัดเนื้อสัน</h4><p>Beef Fried Salad</p></div><div class="mip">160/220.-</div></div>
+                <div class="mi"><div class="mi-img"><img src="https://i.ibb.co/C397gtV5/beefsalad.jpg" alt="" loading="lazy"></div><div class="mic">I5</div><div class="mii"><h4>สลัดเนื้อสัน</h4><p>Beef Fried Salad</p></div><div class="mip">160/220.-</div></div>
                 <div class="mi"><div class="mic">I6</div><div class="mii"><h4>สลัดหมู</h4><p>Pork Salad</p></div><div class="mip">160/220.-</div></div>
             </div>
         </div>
@@ -566,12 +543,12 @@
             <div class="sli"></div>
         </div>
         <div class="gal-g">
-            <div class="gi fi"><div class="gp g1"><span>🏮</span><span class="lbl">บรรยากาศร้าน</span></div><div class="gov"><span>🔍</span></div></div>
-            <div class="gi fi"><div class="gp g2"><span>🍗</span><span class="lbl">ไก่ไทยต้ม</span></div><div class="gov"><span>🔍</span></div></div>
-            <div class="gi fi"><div class="gp g3"><span>🦢</span><span class="lbl">ขาห่านอบหมี่</span></div><div class="gov"><span>🔍</span></div></div>
-            <div class="gi fi"><div class="gp g4"><span>🐟</span><span class="lbl">ปลากะพง</span></div><div class="gov"><span>🔍</span></div></div>
-            <div class="gi fi"><div class="gp g5"><span>🦐</span><span class="lbl">กุ้งอบวุ้นเส้น</span></div><div class="gov"><span>🔍</span></div></div>
-            <div class="gi fi"><div class="gp g6"><span>🍚</span><span class="lbl">ข้าวผัดปู</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp has-img g1"><img src="https://i.ibb.co/9HxSd2hW/set8.jpg" alt="ชุดมงคล" loading="lazy"><span class="lbl">ชุดมงคล</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp has-img g2"><img src="https://i.ibb.co/3YTxXmnf/chicken.jpg" alt="ไก่ไทยต้ม" loading="lazy"><span class="lbl">ไก่ไทยต้ม</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp has-img g3"><img src="https://i.ibb.co/pjRky6PR/goose.jpg" alt="ขาห่านอบหมี่" loading="lazy"><span class="lbl">ขาห่านอบหมี่</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp has-img g4"><img src="https://i.ibb.co/1Yjywg77/grouper.jpg" alt="ปลาเก๋า" loading="lazy"><span class="lbl">ปลาเก๋าราดพริก</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp has-img g5"><img src="https://i.ibb.co/0yfSTS8g/crabrice.jpg" alt="ข้าวผัดปู" loading="lazy"><span class="lbl">ข้าวผัดปู</span></div><div class="gov"><span>🔍</span></div></div>
+            <div class="gi fi"><div class="gp has-img g6"><img src="https://i.ibb.co/pjzS2DCn/orsuan.jpg" alt="ออส่วน" loading="lazy"><span class="lbl">ออส่วน</span></div><div class="gov"><span>🔍</span></div></div>
         </div>
     </div>
 </section>
@@ -604,26 +581,25 @@
 </section>
 
 <section class="catering" id="catering">
-    <div class="ctn">
-        <div class="cat-ct fi">
-            <div class="sb" style="background:rgba(212,165,40,.15);border-color:rgba(212,165,40,.3);color:var(--gb);">🙏 บริการพิเศษ • Special Service</div>
-            <h2>รับทำ<span class="go">อาหารไหว้</span><br>ช่วงเทศกาลจีน</h2>
-            <p>รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน และเทศกาลสำคัญ ด้วยสูตรดั้งเดิม จัดเซ็ตพร้อมเสิร์ฟ</p>
-            <p style="font-size:.9rem;opacity:.7;">Auspicious food for Chinese New Year &amp; all major Chinese festivals</p>
-            <div class="cat-f">
-                <div class="cf"><div class="cf-i">🏮</div><span>ชุดมงคล 5<br>1,490฿</span></div>
-                <div class="cf"><div class="cf-i">⭐</div><span>ชุดมงคล 8<br>2,190฿</span></div>
-                <div class="cf"><div class="cf-i">👑</div><span>ชุดมงคล 10<br>3,190฿</span></div>
-                <div class="cf"><div class="cf-i">📦</div><span>จัดเซ็ตพร้อมส่ง</span></div>
-            </div>
-            <p style="font-size:.88rem;">สนใจสั่งจอง กรุณาติดต่อล่วงหน้า</p>
-            <div class="cat-b">
-                <a href="tel:024372267" class="btn btn-g">📞 02-437-2267</a>
-                <a href="tel:0816972739" class="btn btn-g">📞 081-697-2739</a>
-                <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="btn btn-o">💬 Facebook</a>
-            </div>
+    <div class="ctn"><div class="cat-ct fi">
+        <div class="sb" style="background:rgba(212,165,40,.15);border-color:rgba(212,165,40,.3);color:var(--gb);">🙏 บริการพิเศษ • Special Service</div>
+        <h2>รับทำ<span class="go">อาหารไหว้</span><br>ช่วงเทศกาลจีน</h2>
+        <p>รับทำอาหารไหว้ช่วงเทศกาลตรุษจีน สารทจีน และเทศกาลสำคัญ ด้วยสูตรดั้งเดิม จัดเซ็ตพร้อมเสิร์ฟ</p>
+        <p style="font-size:.9rem;opacity:.7;">Auspicious food for Chinese New Year &amp; all major Chinese festivals</p>
+        <div class="cat-f">
+            <div class="cf"><div class="cf-i">🏮</div><span>ชุดมงคล 5<br>1,490฿</span></div>
+            <div class="cf"><div class="cf-i">⭐</div><span>ชุดมงคล 8<br>2,190฿</span></div>
+            <div class="cf"><div class="cf-i">👑</div><span>ชุดมงคล 10<br>3,190฿</span></div>
+            <div class="cf"><div class="cf-i">📦</div><span>จัดเซ็ตพร้อมส่ง</span></div>
         </div>
-    </div>
+        <p style="font-size:.88rem;">สนใจสั่งจอง กรุณาติดต่อล่วงหน้า</p>
+        <div class="cat-b">
+            <a href="tel:024372267" class="btn btn-g">📞 02-437-2267</a>
+            <a href="tel:0816972739" class="btn btn-g">📞 081-697-2739</a>
+            <a href="https://line.me/R/ti/p/@891xwjfl" target="_blank" class="btn btn-o">💬 Line</a>
+            <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="btn btn-o">Facebook</a>
+        </div>
+    </div></div>
 </section>
 
 <section class="contact" id="contact">
@@ -635,34 +611,11 @@
         </div>
         <div class="con-g">
             <div class="con-items fla">
-                <div class="ci">
-                    <div class="ci-ic">📍</div>
-                    <div class="ci-t">
-                        <h4>ที่ตั้งร้าน (Location)</h4>
-                        <p>ถ.ลาดหญ้า ก่อนถึงลาดหญ้าซอย 9<br>ติดกับทางเข้าโรงแรมธนบุรีโฮเต็ล<br><span style="font-size:.8rem;color:#999;">Ladya Road, before Soi 9, next to Thonburi Hotel</span></p>
-                    </div>
-                </div>
-                <div class="ci">
-                    <div class="ci-ic">🕐</div>
-                    <div class="ci-t">
-                        <h4>เวลาเปิด-ปิด (Hours)</h4>
-                        <p><strong>จันทร์-เสาร์ (Mon-Sat):</strong> 11:00-14:00 &amp; 17:00-21:00<br><strong>วันอาทิตย์ (Sunday):</strong> 11:00-21:00<br><span style="color:var(--r);font-weight:600;">ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน</span><br><span style="font-size:.8rem;color:#999;">Closed every 2nd &amp; 4th Monday</span></p>
-                    </div>
-                </div>
-                <div class="ci">
-                    <div class="ci-ic">📞</div>
-                    <div class="ci-t">
-                        <h4>โทรศัพท์ (Phone)</h4>
-                        <p><a href="tel:024372267">02-437-2267</a><br><a href="tel:0816972739">081-697-2739</a></p>
-                    </div>
-                </div>
-                <div class="ci">
-                    <div class="ci-ic">📱</div>
-                    <div class="ci-t">
-                        <h4>Facebook</h4>
-                        <p><a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank">รุ่งฟ้า Rungfah Restaurant</a></p>
-                    </div>
-                </div>
+                <div class="ci"><div class="ci-ic">📍</div><div class="ci-t"><h4>ที่ตั้งร้าน (Location)</h4><p>ถ.ลาดหญ้า ก่อนถึงลาดหญ้าซอย 9<br>ติดกับทางเข้าโรงแรมธนบุรีโฮเต็ล<br><span style="font-size:.8rem;color:#999;">Ladya Road, before Soi 9, next to Thonburi Hotel</span></p></div></div>
+                <div class="ci"><div class="ci-ic">🕐</div><div class="ci-t"><h4>เวลาเปิด-ปิด (Hours)</h4><p><strong>จันทร์-เสาร์ (Mon-Sat):</strong> 11:00-14:00 &amp; 17:00-21:00<br><strong>วันอาทิตย์ (Sunday):</strong> 11:00-21:00<br><span style="color:var(--r);font-weight:600;">ปิดทุกวันจันทร์ที่ 2 และ 4 ของเดือน</span><br><span style="font-size:.8rem;color:#999;">Closed every 2nd &amp; 4th Monday</span></p></div></div>
+                <div class="ci"><div class="ci-ic">📞</div><div class="ci-t"><h4>โทรศัพท์ (Phone)</h4><p><a href="tel:024372267">02-437-2267</a><br><a href="tel:0816972739">081-697-2739</a></p></div></div>
+                <div class="ci"><div class="ci-ic">📱</div><div class="ci-t"><h4>Facebook</h4><p><a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank">รุ่งฟ้า Rungfah Restaurant</a></p></div></div>
+                <div class="ci"><div class="ci-ic">💬</div><div class="ci-t"><h4>Line Official</h4><p><a href="https://line.me/R/ti/p/@891xwjfl" target="_blank">@891xwjfl</a><br><span style="font-size:.8rem;color:#999;">กดเพิ่มเพื่อนได้เลย</span></p></div></div>
             </div>
             <div class="con-map fra">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d968.9!2d100.4943!3d13.7268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e298d21f1ec24d%3A0x2b6db82f244b950f!2z4Lij4LmJ4Liy4LiZ4Lit4Liy4Lir4Liy4Lij4Lij4Li44LmI4LiH4Lif4LmJ4Liy!5e0!3m2!1sth!2sth!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -677,37 +630,26 @@
             <div class="fl"><div class="fli"><img src="https://i.ibb.co/nNvmDPmW/logo.png" alt="Logo"></div><div class="flt"><h3>ร้านอาหารรุ่งฟ้า</h3><p>Rungfah Restaurant</p></div></div>
             <p>ร้านอาหารไทย-จีนไหหลำแท้ เปิดให้บริการมากว่า 40 ปี สูตรดั้งเดิมสืบทอดจากรุ่นสู่รุ่น ตั้งอยู่บนถนนลาดหญ้า</p>
             <div class="f-soc">
-                <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank">📘</a>
-                <a href="tel:024372267">📞</a>
+                <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" title="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://line.me/R/ti/p/@891xwjfl" target="_blank" title="Line"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596a.634.634 0 01-.199.031c-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595a.59.59 0 01.194-.033c.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+                <a href="tel:024372267" title="Phone">📞</a>
             </div>
         </div>
-        <div class="fc">
-            <h4>เมนูเว็บ</h4>
-            <ul>
-                <li><a href="#home">หน้าแรก</a></li>
-                <li><a href="#about">เกี่ยวกับเรา</a></li>
-                <li><a href="#sets">ชุดมงคล</a></li>
-                <li><a href="#menu">เมนูอาหาร</a></li>
-                <li><a href="#gallery">แกลเลอรี่</a></li>
-                <li><a href="#contact">ติดต่อเรา</a></li>
-            </ul>
-        </div>
-        <div class="fc">
-            <h4>บริการ</h4>
-            <ul>
-                <li><a href="#menu">ทานที่ร้าน</a></li>
-                <li><a href="tel:024372267">สั่งกลับบ้าน</a></li>
-                <li><a href="#catering">อาหารไหว้</a></li>
-                <li><a href="#sets">ชุดมงคล</a></li>
-                <li><a href="https://drive.google.com/file/d/1zdg1qBkPIiKiA9-XN5ADUvROOU7LjuXt/view?usp=sharing" target="_blank">เมนูฉบับเต็ม (PDF)</a></li>
-            </ul>
-        </div>
-        <div class="fc">
-            <h4>ข้อมูลร้าน</h4>
+        <div class="fc"><h4>เมนูเว็บ</h4><ul>
+            <li><a href="#home">หน้าแรก</a></li><li><a href="#about">เกี่ยวกับเรา</a></li>
+            <li><a href="#sets">ชุดมงคล</a></li><li><a href="#menu">เมนูอาหาร</a></li>
+            <li><a href="#gallery">แกลเลอรี่</a></li><li><a href="#contact">ติดต่อเรา</a></li>
+        </ul></div>
+        <div class="fc"><h4>บริการ</h4><ul>
+            <li><a href="#menu">ทานที่ร้าน</a></li><li><a href="tel:024372267">สั่งกลับบ้าน</a></li>
+            <li><a href="#catering">อาหารไหว้</a></li><li><a href="#sets">ชุดมงคล</a></li>
+            <li><a href="https://drive.google.com/file/d/1zdg1qBkPIiKiA9-XN5ADUvROOU7LjuXt/view?usp=sharing" target="_blank">เมนูฉบับเต็ม (PDF)</a></li>
+        </ul></div>
+        <div class="fc"><h4>ข้อมูลร้าน</h4>
             <div class="fci"><span>📍</span><span>ถ.ลาดหญ้า ก่อนถึงซอย 9<br>ติดโรงแรมธนบุรีโฮเต็ล</span></div>
             <div class="fci"><span>🕐</span><span>จ-ส: 11:00-14:00, 17:00-21:00<br>อา: 11:00-21:00</span></div>
             <div class="fci"><span>📞</span><span>02-437-2267<br>081-697-2739</span></div>
-            <div class="fci"><span>📘</span><span>รุ่งฟ้า Rungfah Restaurant</span></div>
+            <div class="fci"><span>💬</span><span>Line: @891xwjfl</span></div>
         </div>
     </div>
     <div class="f-bot"><p>© 2024 ร้านอาหารรุ่งฟ้า Rungfah Restaurant | อาหารจีน-ไหหลำแท้ ตั้งแต่ พ.ศ. 2524</p></div>
@@ -715,8 +657,9 @@
 
 <div class="float">
     <a href="#home" class="fbb totop" id="btt">⬆️</a>
-    <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="fbb face">📘</a>
-    <a href="tel:024372267" class="fbb phone">📞</a>
+    <a href="https://line.me/R/ti/p/@891xwjfl" target="_blank" class="fbb line" title="Line"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596a.634.634 0 01-.199.031c-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595a.59.59 0 01.194-.033c.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+    <a href="https://www.facebook.com/profile.php?id=100063686592578" target="_blank" class="fbb face" title="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="tel:024372267" class="fbb phone" title="Phone">📞</a>
 </div>
 
 <script>
